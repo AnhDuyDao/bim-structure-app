@@ -32,7 +32,7 @@
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Width="120">ETABS DB</TextBlock>
-                    <TextBox Width="250" Text="{Binding ImportFile}" IsReadOnly="True"/>
+                    <TextBox Width="250" Text="{Binding ImportFileName, Mode=OneWay}" IsReadOnly="True"/>
                     <Button Content="..." Command="{Binding BrowseFileCommand}"/>
                 </StackPanel>
 

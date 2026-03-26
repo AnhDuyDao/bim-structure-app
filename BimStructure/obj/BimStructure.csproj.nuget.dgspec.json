@@ -82,6 +82,10 @@
             "Nice3point.Revit.Toolkit": {
               "target": "Package",
               "version": "[2024.*, )"
+            },
+            "WindowsAPICodePack.Shell.CommonFileDialogs": {
+              "target": "Package",
+              "version": "[1.1.5, )"
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201\\RuntimeIdentifierGraph.json"

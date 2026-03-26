@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using BimStructure.Services;
 using BimStructure.Views;
 using BimStructure.ViewModels;
 
@@ -17,6 +18,9 @@ public static class Host
     public static void Start()
     {
         var services = new ServiceCollection();
+
+        // Services
+        services.AddSingleton<IDialogService, DialogService>();
 
         //MVVM
         services.AddTransient<BimStructureViewModel>();
