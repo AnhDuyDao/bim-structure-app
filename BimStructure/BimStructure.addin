@@ -1,0 +1,14 @@
+<RevitAddIns>
+    <AddIn Type="Application">
+        <Name>BimStructure</Name>
+        <Assembly>BimStructure\BimStructure.dll</Assembly>
+        <AddInId>363BA6A9-AEB1-4065-9ABB-5670A0EBF523</AddInId>
+        <FullClassName>BimStructure.Application</FullClassName>
+        <VendorId>Development</VendorId>
+        <VendorDescription></VendorDescription>
+    </AddIn>
+    <ManifestSettings>
+        <UseRevitContext>False</UseRevitContext>
+        <ContextName>BimStructure</ContextName>
+    </ManifestSettings>
+</RevitAddIns>

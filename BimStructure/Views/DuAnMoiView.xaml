@@ -1,0 +1,89 @@
+﻿<Window x:Class="BimStructure.Views.DuAnMoiView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:BimStructure.Views"
+        mc:Ignorable="d"
+        Title="Dự Án Mới" SizeToContent="Height"
+        ResizeMode="NoResize" Width="600">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!-- GROUP 1 -->
+        <GroupBox Header="Thông tin dự án" Grid.Row="0" Margin="0 0 0 10">
+            <StackPanel Margin="10">
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Width="120">Tên dự án</TextBlock>
+                    <TextBox Width="250"
+                             Text="{Binding ProjectName, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Width="120">Đường dẫn</TextBlock>
+                    <TextBox Width="250" Text="{Binding FolderPath}" IsReadOnly="True"/>
+                    <Button Content="..." Command="{Binding BrowseFolderCommand}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Width="120">ETABS DB</TextBlock>
+                    <TextBox Width="250" Text="{Binding ImportFile}" IsReadOnly="True"/>
+                    <Button Content="..." Command="{Binding BrowseFileCommand}"/>
+                </StackPanel>
+
+            </StackPanel>
+        </GroupBox>
+        
+        <!-- GROUP 2 -->
+        <GroupBox Header="Đơn vị" Grid.Row="1" Margin="0 0 0 10">
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Width="120">Chiều dài</TextBlock>
+                <TextBox Width="100" Text="{Binding LengthUnit}" IsReadOnly="True"/>
+
+                <TextBlock Width="120" Margin="20 0 0 0">Lực</TextBlock>
+                <TextBox Width="100" Text="{Binding ForceUnit}" IsReadOnly="True"/>
+            </StackPanel>
+        </GroupBox>
+        <!-- GROUP 3 -->
+        <GroupBox Header="Vật liệu" Grid.Row="2">
+            <StackPanel Margin="10">
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Width="120">Bê tông</TextBlock>
+                    <ComboBox Width="150"
+                              ItemsSource="{Binding BetongList}"
+                              SelectedItem="{Binding SelectedBetong}"
+                              DisplayMemberPath="Ten"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0 5">
+                    <TextBlock Width="120">Thép</TextBlock>
+                    <ComboBox Width="150"
+                              ItemsSource="{Binding ThepList}"
+                              SelectedItem="{Binding SelectedThep}"
+                              DisplayMemberPath="Ten"/>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0 10 0 0">
+
+            <Button Content="Tạo mới"
+                    Width="120"
+                    Command="{Binding CreateCommand}"/>
+
+            <Button Content="Hủy"
+                    Width="120"
+                    Margin="10 0 0 0"
+                    Command="{Binding CancelCommand}"/>
+        </StackPanel>
+    </Grid>
+</Window>
