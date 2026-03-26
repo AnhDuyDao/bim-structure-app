@@ -6,11 +6,11 @@ namespace BimStructure.Commands;
 
 [UsedImplicitly]
 [Transaction(TransactionMode.Manual)]
-public class HelloCommand : ExternalCommand
+public class DuAnMoiCommand : ExternalCommand
 {
     public override void Execute()
     {
-        var view = Host.GetService<BimStructureView>();
+        var view = Host.GetService<DuAnMoiView>();
         view.ShowDialog();
     }
 }

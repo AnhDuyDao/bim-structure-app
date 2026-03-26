@@ -5,9 +5,12 @@ namespace BimStructure.Services;
 
 public sealed class DialogService : IDialogService
 {
+    private const string AccessDatabaseFilter =
+        "Access Database (*.accdb;*.mdb)|*.accdb;*.mdb|Access 2007+ (*.accdb)|*.accdb|Access 2003 (*.mdb)|*.mdb";
+
     public string? PickFolder()
     {
-        var dialog = new CommonOpenFileDialog
+        using var dialog = new CommonOpenFileDialog
         {
             IsFolderPicker = true
         };
@@ -21,7 +24,8 @@ public sealed class DialogService : IDialogService
     {
         var dialog = new OpenFileDialog
         {
-            Filter = "Access Database (*.accdb;*.mdb)|*.accdb;*.mdb|Access 2007+ (*.accdb)|*.accdb|Access 2003 (*.mdb)|*.mdb",
+            Title = "Import ETABS",
+            Filter = AccessDatabaseFilter,
             CheckFileExists = true,
             Multiselect = false
         };
