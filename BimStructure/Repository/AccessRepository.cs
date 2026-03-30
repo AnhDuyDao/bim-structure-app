@@ -4,31 +4,31 @@ using System.Data.OleDb;
 using System.IO;
 using BimStructure.Configuration;
 
-namespace BimStructure.Services;
+namespace BimStructure.Repository;
 
-public sealed class AccessDatabaseService : IAccessDatabaseService
+public sealed class AccessRepository : IAccessRepository
 {
     private readonly PluginConfiguration _configuration;
 
-    public AccessDatabaseService(PluginConfiguration configuration)
+    public AccessRepository(PluginConfiguration configuration)
     {
         _configuration = configuration;
     }
 
-    public void ValidateConnection(string databasePath)
+    public void ValidateDatabase(string databasePath)
     {
         using var connection = new OleDbConnection(BuildConnectionString(databasePath));
         connection.Open();
     }
 
-    public DataTable ExecuteQuery(string databasePath, string queryString)
+    public DataTable GetData(string databasePath, string query)
     {
         var dataTable = new DataTable();
 
         using var connection = new OleDbConnection(BuildConnectionString(databasePath));
         connection.Open();
 
-        using var command = new OleDbCommand(queryString, connection);
+        using var command = new OleDbCommand(query, connection);
         using var reader = command.ExecuteReader();
 
         if (reader is not null)

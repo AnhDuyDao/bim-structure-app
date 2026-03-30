@@ -25,7 +25,9 @@ public static class Host
         // Services
         services.AddSingleton(pluginConfiguration);
         services.AddSingleton<IDialogService, DialogService>();
-        services.AddSingleton<IAccessDatabaseService, AccessDatabaseService>();
+        services.AddSingleton<IAccessRepository, AccessRepository>();
+        services.AddSingleton<IAccessService, AccessService>();
+        services.AddSingleton<IGridRepository, GridRepository>();
         services.AddSingleton<IVatLieuRepository, VatLieuRepository>();
         services.AddSingleton<IVatLieuService, VatLieuService>();
 

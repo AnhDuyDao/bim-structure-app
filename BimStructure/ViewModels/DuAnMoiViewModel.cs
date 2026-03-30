@@ -11,16 +11,16 @@ namespace BimStructure.ViewModels;
 public sealed partial class DuAnMoiViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IAccessDatabaseService _accessDatabaseService;
+    private readonly IAccessService _accessService;
     private readonly IVatLieuService _vatLieuService;
 
     public DuAnMoiViewModel(
         IDialogService dialogService,
-        IAccessDatabaseService accessDatabaseService,
+        IAccessService accessService,
         IVatLieuService vatLieuService)
     {
         _dialogService = dialogService;
-        _accessDatabaseService = accessDatabaseService;
+        _accessService = accessService;
         _vatLieuService = vatLieuService;
 
         LoadVatLieu();
@@ -84,7 +84,7 @@ public sealed partial class DuAnMoiViewModel : ObservableObject
     {
         try
         {
-            _accessDatabaseService.ValidateConnection(ImportFile);
+            _accessService.ValidateDatabase(ImportFile);
         }
         catch (Exception exception)
         {
