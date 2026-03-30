@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using BimStructure.Configuration;
+using BimStructure.Repository;
 using BimStructure.Services;
 using BimStructure.Views;
 using BimStructure.ViewModels;
@@ -25,6 +26,8 @@ public static class Host
         services.AddSingleton(pluginConfiguration);
         services.AddSingleton<IDialogService, DialogService>();
         services.AddSingleton<IAccessDatabaseService, AccessDatabaseService>();
+        services.AddSingleton<IVatLieuRepository, VatLieuRepository>();
+        services.AddSingleton<IVatLieuService, VatLieuService>();
 
         //MVVM
         services.AddTransient<BimStructureViewModel>();

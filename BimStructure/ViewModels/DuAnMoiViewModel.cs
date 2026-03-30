@@ -12,28 +12,18 @@ public sealed partial class DuAnMoiViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
     private readonly IAccessDatabaseService _accessDatabaseService;
+    private readonly IVatLieuService _vatLieuService;
 
-    public DuAnMoiViewModel(IDialogService dialogService, IAccessDatabaseService accessDatabaseService)
+    public DuAnMoiViewModel(
+        IDialogService dialogService,
+        IAccessDatabaseService accessDatabaseService,
+        IVatLieuService vatLieuService)
     {
         _dialogService = dialogService;
         _accessDatabaseService = accessDatabaseService;
+        _vatLieuService = vatLieuService;
 
-        ConcreteMaterials = new ObservableCollection<MaterialOption>
-        {
-            new("B20"),
-            new("B25"),
-            new("B30")
-        };
-
-        SteelMaterials = new ObservableCollection<MaterialOption>
-        {
-            new("CB240-T"),
-            new("CB300-V"),
-            new("CB400-V")
-        };
-
-        SelectedConcreteMaterial = ConcreteMaterials[0];
-        SelectedSteelMaterial = SteelMaterials[0];
+        LoadVatLieu();
     }
 
     public event Action<bool?>? RequestClose;
@@ -53,15 +43,17 @@ public sealed partial class DuAnMoiViewModel : ObservableObject
     [ObservableProperty]
     private string _forceUnit = "kN";
 
-    [ObservableProperty]
-    private MaterialOption? _selectedConcreteMaterial;
+    public ObservableCollection<VatLieuBeTong> ConcreteMaterials { get; } = new();
+    public ObservableCollection<VatLieuThep> SteelMaterials { get; } = new();
 
     [ObservableProperty]
-    private MaterialOption? _selectedSteelMaterial;
+    private VatLieuBeTong? _selectedConcreteMaterial;
+
+    [ObservableProperty]
+    private VatLieuThep? _selectedSteelMaterial;
 
     public string ImportFileName => Path.GetFileName(ImportFile);
-    public ObservableCollection<MaterialOption> ConcreteMaterials { get; }
-    public ObservableCollection<MaterialOption> SteelMaterials { get; }
+    
     public bool CanCreateProject =>
         !string.IsNullOrWhiteSpace(ProjectName) &&
         !string.IsNullOrWhiteSpace(FolderPath) &&
@@ -123,5 +115,23 @@ public sealed partial class DuAnMoiViewModel : ObservableObject
     {
         OnPropertyChanged(nameof(ImportFileName));
         CreateProjectCommand.NotifyCanExecuteChanged();
+    }
+
+    private void LoadVatLieu()
+    {
+        ConcreteMaterials.Clear();
+        foreach (var vatLieuBeTong in _vatLieuService.GetBeTong())
+        {
+            ConcreteMaterials.Add(vatLieuBeTong);
+        }
+
+        SteelMaterials.Clear();
+        foreach (var vatLieuThep in _vatLieuService.GetThep())
+        {
+            SteelMaterials.Add(vatLieuThep);
+        }
+
+        SelectedConcreteMaterial = ConcreteMaterials.Count > 0 ? ConcreteMaterials[0] : null;
+        SelectedSteelMaterial = SteelMaterials.Count > 0 ? SteelMaterials[0] : null;
     }
 }

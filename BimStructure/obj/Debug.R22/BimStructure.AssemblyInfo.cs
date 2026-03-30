@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BimStructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug.R22")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+afd95ab20f826fa6f1597038f7e0810721b6d00f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9050ec7f89470427ca32a2713297616a4c430775")]
 [assembly: System.Reflection.AssemblyProductAttribute("BimStructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BimStructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

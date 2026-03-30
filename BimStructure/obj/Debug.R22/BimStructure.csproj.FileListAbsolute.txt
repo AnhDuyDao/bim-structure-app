@@ -30,3 +30,5 @@ D:\BimStructure\BimStructure\obj\Debug.R22\BimStruc.F9B8E10B.Up2Date
 D:\BimStructure\BimStructure\obj\Debug.R22\BimStructure.dll
 D:\BimStructure\BimStructure\obj\Debug.R22\BimStructure.pdb
 D:\BimStructure\BimStructure\bin\Debug.R22\WindowsAPICodePack.Shell.CommonFileDialogs.dll
+D:\BimStructure\BimStructure\bin\Debug.R22\BimStructure.config
+D:\BimStructure\BimStructure\bin\Debug.R22\System.Configuration.ConfigurationManager.dll

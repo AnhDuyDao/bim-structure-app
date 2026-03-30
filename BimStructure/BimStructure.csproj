@@ -60,10 +60,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Models"/>
-    </ItemGroup>
-
-    <ItemGroup>
       <Compile Remove="Services\MessageService.cs" />
       <Compile Remove="Services\IMessageService.cs" />
       <Compile Remove="Services\IEtabsModelMapper.cs" />
