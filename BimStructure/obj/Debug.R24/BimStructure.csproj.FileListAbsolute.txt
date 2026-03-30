@@ -30,3 +30,5 @@ D:\BimStructure\BimStructure\obj\Debug.R24\Views\DuAnMoiView.g.cs
 D:\BimStructure\BimStructure\obj\Debug.R24\Views\DuAnMoiView.baml
 D:\BimStructure\BimStructure\obj\Debug.R24\BimStructure.sourcelink.json
 D:\BimStructure\BimStructure\bin\Debug.R24\WindowsAPICodePack.Shell.CommonFileDialogs.dll
+D:\BimStructure\BimStructure\bin\Debug.R24\BimStructure.config
+D:\BimStructure\BimStructure\bin\Debug.R24\System.Configuration.ConfigurationManager.dll

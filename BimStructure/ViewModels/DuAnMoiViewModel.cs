@@ -11,10 +11,12 @@ namespace BimStructure.ViewModels;
 public sealed partial class DuAnMoiViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
+    private readonly IAccessDatabaseService _accessDatabaseService;
 
-    public DuAnMoiViewModel(IDialogService dialogService)
+    public DuAnMoiViewModel(IDialogService dialogService, IAccessDatabaseService accessDatabaseService)
     {
         _dialogService = dialogService;
+        _accessDatabaseService = accessDatabaseService;
 
         ConcreteMaterials = new ObservableCollection<MaterialOption>
         {
@@ -37,7 +39,7 @@ public sealed partial class DuAnMoiViewModel : ObservableObject
     public event Action<bool?>? RequestClose;
 
     [ObservableProperty]
-    private string _projectName = string.Empty;
+    private string _projectName = "Du_an_1";
 
     [ObservableProperty]
     private string _folderPath = string.Empty;
@@ -88,6 +90,16 @@ public sealed partial class DuAnMoiViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanCreateProject))]
     private void CreateProject()
     {
+        try
+        {
+            _accessDatabaseService.ValidateConnection(ImportFile);
+        }
+        catch (Exception exception)
+        {
+            _dialogService.ShowError("BimStructure", $"Khong the mo file Access.{Environment.NewLine}{exception.Message}");
+            return;
+        }
+
         RequestClose?.Invoke(true);
     }
 

@@ -1,5 +1,6 @@
 using Microsoft.Win32;
 using WindowsAPICodePack.Dialogs;
+using Autodesk.Revit.UI;
 
 namespace BimStructure.Services;
 
@@ -33,5 +34,10 @@ public sealed class DialogService : IDialogService
         return dialog.ShowDialog() == true
             ? dialog.FileName
             : null;
+    }
+
+    public void ShowError(string title, string message)
+    {
+        TaskDialog.Show(title, message);
     }
 }
