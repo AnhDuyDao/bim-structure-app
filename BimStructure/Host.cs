@@ -37,6 +37,8 @@ public static class Host
         services.AddTransient<BimStructureView>();
         services.AddTransient<NewProjectViewModel>();
         services.AddTransient<NewProjectView>();
+        services.AddTransient<BuildModelViewModel>();
+        services.AddTransient<BuildModelView>();
 
         _serviceProvider = services.BuildServiceProvider();
     }

@@ -1,0 +1,8 @@
+D:\BimStructure\BimStructure\obj\Debug.R26\BimStructure.csproj.AssemblyReference.cache
+D:\BimStructure\BimStructure\obj\Debug.R26\Views\BuildModelView.baml
+D:\BimStructure\BimStructure\obj\Debug.R26\Views\NewProjectView.baml
+D:\BimStructure\BimStructure\obj\Debug.R26\Views\BimStructureView.g.cs
+D:\BimStructure\BimStructure\obj\Debug.R26\Views\BuildModelView.g.cs
+D:\BimStructure\BimStructure\obj\Debug.R26\Views\NewProjectView.g.cs
+D:\BimStructure\BimStructure\obj\Debug.R26\BimStructure_MarkupCompile.cache
+D:\BimStructure\BimStructure\obj\Debug.R26\BimStructure_MarkupCompile.lref

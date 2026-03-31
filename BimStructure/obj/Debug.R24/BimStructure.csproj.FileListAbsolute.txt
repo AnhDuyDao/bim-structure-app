@@ -32,3 +32,5 @@ D:\BimStructure\BimStructure\bin\Debug.R24\BimStructure.config
 D:\BimStructure\BimStructure\bin\Debug.R24\System.Configuration.ConfigurationManager.dll
 D:\BimStructure\BimStructure\obj\Debug.R24\Views\NewProjectView.baml
 D:\BimStructure\BimStructure\obj\Debug.R24\Views\NewProjectView.g.cs
+D:\BimStructure\BimStructure\obj\Debug.R24\Views\BuildModelView.baml
+D:\BimStructure\BimStructure\obj\Debug.R24\Views\BuildModelView.g.cs
