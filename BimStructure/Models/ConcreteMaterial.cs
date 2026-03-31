@@ -1,9 +1,9 @@
 namespace BimStructure.Models;
 
-public class VatLieuBeTong
+public class ConcreteMaterial
 {
     [System.ComponentModel.DisplayName("Vật liệu bê tông")]
-    public string Ten { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
     [System.ComponentModel.DisplayName("Cấp độ bền chịu nén \ndọc trục Rb (MPa)")]
     public double Rb { get; set; }

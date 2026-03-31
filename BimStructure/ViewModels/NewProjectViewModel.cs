@@ -9,23 +9,23 @@ using UnitUtils = BimStructure.Utils.UnitUtils;
 
 namespace BimStructure.ViewModels;
 
-public sealed partial class DuAnMoiViewModel : ObservableObject
+public sealed partial class NewProjectViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
     private readonly IUnitService _unitService;
-    private readonly IVatLieuService _vatLieuService;
+    private readonly IMaterialService _materialService;
     private DBUnitSet? _importedUnits;
 
-    public DuAnMoiViewModel(
+    public NewProjectViewModel(
         IDialogService dialogService,
         IUnitService unitService,
-        IVatLieuService vatLieuService)
+        IMaterialService materialService)
     {
         _dialogService = dialogService;
         _unitService = unitService;
-        _vatLieuService = vatLieuService;
+        _materialService = materialService;
 
-        LoadVatLieu();
+        LoadMaterial();
     }
 
     public event Action<bool?>? RequestClose;
@@ -45,14 +45,14 @@ public sealed partial class DuAnMoiViewModel : ObservableObject
     [ObservableProperty]
     private string _forceUnit = string.Empty;
 
-    public ObservableCollection<VatLieuBeTong> ConcreteMaterials { get; } = new();
-    public ObservableCollection<VatLieuThep> SteelMaterials { get; } = new();
+    public ObservableCollection<ConcreteMaterial> ConcreteMaterials { get; } = new();
+    public ObservableCollection<SteelMaterial> SteelMaterials { get; } = new();
 
     [ObservableProperty]
-    private VatLieuBeTong? _selectedConcreteMaterial;
+    private ConcreteMaterial? _selectedConcreteMaterial;
 
     [ObservableProperty]
-    private VatLieuThep? _selectedSteelMaterial;
+    private SteelMaterial? _selectedSteelMaterial;
 
     public string ImportFileName => Path.GetFileName(ImportFile);
     
@@ -129,18 +129,18 @@ public sealed partial class DuAnMoiViewModel : ObservableObject
         CreateProjectCommand.NotifyCanExecuteChanged();
     }
 
-    private void LoadVatLieu()
+    private void LoadMaterial()
     {
         ConcreteMaterials.Clear();
-        foreach (var vatLieuBeTong in _vatLieuService.GetBeTong())
+        foreach (var concreteMaterial in _materialService.GetConcreteMaterials())
         {
-            ConcreteMaterials.Add(vatLieuBeTong);
+            ConcreteMaterials.Add(concreteMaterial);
         }
 
         SteelMaterials.Clear();
-        foreach (var vatLieuThep in _vatLieuService.GetThep())
+        foreach (var steelMaterial in _materialService.GetSteelMaterials())
         {
-            SteelMaterials.Add(vatLieuThep);
+            SteelMaterials.Add(steelMaterial);
         }
 
         SelectedConcreteMaterial = ConcreteMaterials.Count > 0 ? ConcreteMaterials[0] : null;

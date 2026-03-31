@@ -23,7 +23,7 @@ public class Application : ExternalApplication
         
         var panelDuAn = Application.CreateRibbonPanel("BimStructure","Dự Án");
 
-        panelDuAn.AddPushButton<DuAnMoiCommand>("Dự án mới")
+        panelDuAn.AddPushButton<NewProjectCommand>("Dự án mới")
             .SetLargeImage("/BimStructure;component/Resources/Icons/icons8-new-project-16.png");
         
         panelDuAn.AddPushButton<HelloCommand>("Mở dự án")

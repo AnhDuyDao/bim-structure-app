@@ -26,9 +26,9 @@ D:\BimStructure\BimStructure\obj\Debug.R24\BimStructure.csproj.CoreCompileInputs
 D:\BimStructure\BimStructure\obj\Debug.R24\BimStruc.F9B8E10B.Up2Date
 D:\BimStructure\BimStructure\obj\Debug.R24\BimStructure.dll
 D:\BimStructure\BimStructure\obj\Debug.R24\BimStructure.pdb
-D:\BimStructure\BimStructure\obj\Debug.R24\Views\DuAnMoiView.g.cs
-D:\BimStructure\BimStructure\obj\Debug.R24\Views\DuAnMoiView.baml
 D:\BimStructure\BimStructure\obj\Debug.R24\BimStructure.sourcelink.json
 D:\BimStructure\BimStructure\bin\Debug.R24\WindowsAPICodePack.Shell.CommonFileDialogs.dll
 D:\BimStructure\BimStructure\bin\Debug.R24\BimStructure.config
 D:\BimStructure\BimStructure\bin\Debug.R24\System.Configuration.ConfigurationManager.dll
+D:\BimStructure\BimStructure\obj\Debug.R24\Views\NewProjectView.baml
+D:\BimStructure\BimStructure\obj\Debug.R24\Views\NewProjectView.g.cs

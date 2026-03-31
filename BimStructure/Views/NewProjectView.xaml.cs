@@ -3,9 +3,9 @@ using BimStructure.ViewModels;
 
 namespace BimStructure.Views;
 
-public sealed partial class DuAnMoiView
+public sealed partial class NewProjectView
 {
-    public DuAnMoiView(DuAnMoiViewModel viewModel)
+    public NewProjectView(NewProjectViewModel viewModel)
     {
         DataContext = viewModel;
         viewModel.RequestClose += OnRequestClose;
@@ -21,7 +21,7 @@ public sealed partial class DuAnMoiView
 
     private void OnClosed(object? sender, EventArgs e)
     {
-        if (DataContext is DuAnMoiViewModel viewModel)
+        if (DataContext is NewProjectViewModel viewModel)
         {
             viewModel.RequestClose -= OnRequestClose;
         }

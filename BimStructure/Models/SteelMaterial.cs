@@ -1,9 +1,9 @@
 ﻿namespace BimStructure.Models;
 
-public class VatLieuThep
+public class SteelMaterial
 {
     [System.ComponentModel.DisplayName("Nhóm cốt thép")]
-    public string Ten { get; set; }
+    public string Name { get; set; } = String.Empty;
     [System.ComponentModel.DisplayName("Cường độ chịu kéo \nthép dọc Rs (MPa)")]
     public double Rs { get; set; }
 

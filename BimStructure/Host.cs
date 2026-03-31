@@ -29,14 +29,14 @@ public static class Host
         services.AddSingleton<IUnitRepository, UnitRepository>();
         services.AddSingleton<IUnitService, UnitService>();
         services.AddSingleton<IGridRepository, GridRepository>();
-        services.AddSingleton<IVatLieuRepository, VatLieuRepository>();
-        services.AddSingleton<IVatLieuService, VatLieuService>();
+        services.AddSingleton<IMaterialRepository, MaterialRepository>();
+        services.AddSingleton<IMaterialService, MaterialService>();
 
         //MVVM
         services.AddTransient<BimStructureViewModel>();
         services.AddTransient<BimStructureView>();
-        services.AddTransient<DuAnMoiViewModel>();
-        services.AddTransient<DuAnMoiView>();
+        services.AddTransient<NewProjectViewModel>();
+        services.AddTransient<NewProjectView>();
 
         _serviceProvider = services.BuildServiceProvider();
     }
