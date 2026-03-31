@@ -15,12 +15,6 @@ public sealed class AccessRepository : IAccessRepository
         _configuration = configuration;
     }
 
-    public void ValidateDatabase(string databasePath)
-    {
-        using var connection = new OleDbConnection(BuildConnectionString(databasePath));
-        connection.Open();
-    }
-
     public DataTable GetData(string databasePath, string query)
     {
         var dataTable = new DataTable();

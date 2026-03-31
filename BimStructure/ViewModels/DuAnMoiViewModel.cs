@@ -5,22 +5,24 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using BimStructure.Models;
 using BimStructure.Services;
+using UnitUtils = BimStructure.Utils.UnitUtils;
 
 namespace BimStructure.ViewModels;
 
 public sealed partial class DuAnMoiViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IAccessService _accessService;
+    private readonly IUnitService _unitService;
     private readonly IVatLieuService _vatLieuService;
+    private DBUnitSet? _importedUnits;
 
     public DuAnMoiViewModel(
         IDialogService dialogService,
-        IAccessService accessService,
+        IUnitService unitService,
         IVatLieuService vatLieuService)
     {
         _dialogService = dialogService;
-        _accessService = accessService;
+        _unitService = unitService;
         _vatLieuService = vatLieuService;
 
         LoadVatLieu();
@@ -38,10 +40,10 @@ public sealed partial class DuAnMoiViewModel : ObservableObject
     private string _importFile = string.Empty;
 
     [ObservableProperty]
-    private string _lengthUnit = "m";
+    private string _lengthUnit = string.Empty;
 
     [ObservableProperty]
-    private string _forceUnit = "kN";
+    private string _forceUnit = string.Empty;
 
     public ObservableCollection<VatLieuBeTong> ConcreteMaterials { get; } = new();
     public ObservableCollection<VatLieuThep> SteelMaterials { get; } = new();
@@ -57,7 +59,8 @@ public sealed partial class DuAnMoiViewModel : ObservableObject
     public bool CanCreateProject =>
         !string.IsNullOrWhiteSpace(ProjectName) &&
         !string.IsNullOrWhiteSpace(FolderPath) &&
-        !string.IsNullOrWhiteSpace(ImportFile);
+        !string.IsNullOrWhiteSpace(ImportFile) &&
+        _importedUnits is not null;
 
     [RelayCommand]
     private void BrowseFolder()
@@ -73,25 +76,34 @@ public sealed partial class DuAnMoiViewModel : ObservableObject
     private void BrowseFile()
     {
         var selectedPath = _dialogService.PickAccessDatabaseFile();
-        if (!string.IsNullOrWhiteSpace(selectedPath))
+        if (string.IsNullOrWhiteSpace(selectedPath))
         {
+            return;
+        }
+
+        try
+        {
+            var units = _unitService.GetUnits(selectedPath!);
+
+            _importedUnits = units;
             ImportFile = selectedPath!;
+            LengthUnit = UnitUtils.ToDisplayString(units.LengthUnit);
+            ForceUnit = UnitUtils.ToDisplayString(units.ForceUnit);
+        }
+        catch (Exception exception)
+        {
+            _importedUnits = null;
+            ImportFile = string.Empty;
+            LengthUnit = string.Empty;
+            ForceUnit = string.Empty;
+
+            _dialogService.ShowError("BimStructure", $"Khong the doc file Access.{Environment.NewLine}{exception.Message}");
         }
     }
 
     [RelayCommand(CanExecute = nameof(CanCreateProject))]
     private void CreateProject()
     {
-        try
-        {
-            _accessService.ValidateDatabase(ImportFile);
-        }
-        catch (Exception exception)
-        {
-            _dialogService.ShowError("BimStructure", $"Khong the mo file Access.{Environment.NewLine}{exception.Message}");
-            return;
-        }
-
         RequestClose?.Invoke(true);
     }
 
