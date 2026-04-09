@@ -34,6 +34,8 @@ public static class Host
         services.AddSingleton<IGridService, GridService>();
         services.AddSingleton<IProjectService, ProjectService>();
         services.AddSingleton<IBaseStoryRepository, BaseStoryRepository>();
+        services.AddSingleton<IStoryService, StoryService>();
+        services.AddSingleton<IStoryService, StoryService>();
 
         //MVVM
         services.AddTransient<BimStructureViewModel>();
