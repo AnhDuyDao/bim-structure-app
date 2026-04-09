@@ -33,6 +33,7 @@ public static class Host
         services.AddSingleton<IMaterialService, MaterialService>();
         services.AddSingleton<IGridService, GridService>();
         services.AddSingleton<IProjectService, ProjectService>();
+        services.AddSingleton<IBaseStoryRepository, BaseStoryRepository>();
 
         //MVVM
         services.AddTransient<BimStructureViewModel>();

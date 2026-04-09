@@ -1,6 +1,8 @@
-﻿namespace BimStructure.Repository;
+﻿using BimStructure.Models;
 
-public class IBaseStoryRepository
+namespace BimStructure.Repository;
+
+public interface IBaseStoryRepository
 {
-    
+    List<DBStory> GetBaseStory(string databasePath);
 }
