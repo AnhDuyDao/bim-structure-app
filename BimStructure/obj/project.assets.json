@@ -131,11 +131,8 @@
           }
         }
       },
-      "Nice3point.Revit.Extensions/2024.2.1": {
+      "Nice3point.Revit.Extensions/2024.3.0": {
         "type": "package",
-        "dependencies": {
-          "JetBrains.Annotations": "2024.3.0"
-        },
         "compile": {
           "lib/net48/Nice3point.Revit.Extensions.dll": {
             "related": ".xml"
@@ -147,7 +144,7 @@
           }
         }
       },
-      "Nice3point.Revit.Toolkit/2024.2.0": {
+      "Nice3point.Revit.Toolkit/2024.3.0": {
         "type": "package",
         "compile": {
           "lib/net48/Nice3point.Revit.Toolkit.dll": {
@@ -890,10 +887,10 @@
         "ref/net48/RevitAPIUI.xml"
       ]
     },
-    "Nice3point.Revit.Extensions/2024.2.1": {
-      "sha512": "frDPEGq2vikIsHxp42OiKLJOm/YmYWd/AtHP6xRmAZCQilfGc5bbnKBokxNXvvr1a0yKCV2/4VoVomkROu/NtA==",
+    "Nice3point.Revit.Extensions/2024.3.0": {
+      "sha512": "x5Wfm5MUFvAgNWdQ5jGYWFeRHQMbfd3lJHNd9GAk0BfPGefa77wIdWpeYsMNykSAKumAdrgztQ0p0PqXrBFJqA==",
       "type": "package",
-      "path": "nice3point.revit.extensions/2024.2.1",
+      "path": "nice3point.revit.extensions/2024.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -902,23 +899,29 @@
         "images/PackageIcon.png",
         "lib/net48/Nice3point.Revit.Extensions.dll",
         "lib/net48/Nice3point.Revit.Extensions.xml",
-        "nice3point.revit.extensions.2024.2.1.nupkg.sha512",
+        "nice3point.revit.extensions.2024.3.0.nupkg.sha512",
         "nice3point.revit.extensions.nuspec"
       ]
     },
-    "Nice3point.Revit.Toolkit/2024.2.0": {
-      "sha512": "A54JYZSNLwaAl5OEOLGBwczNHSJbp0o4n9SnOH3XTYYPdwnZWu0HvGNZg4LWi78QofYGGUW6WnQagPU4Atq//w==",
+    "Nice3point.Revit.Toolkit/2024.3.0": {
+      "sha512": "X/UvKk1/+Niqiqty77U/jPq3W+SYDhZ6kvn0RI5uo6Dim5PvfPhd6mn9l7HfB/InMcsTOE1FuJG7cl/j1NP+/Q==",
       "type": "package",
-      "path": "nice3point.revit.toolkit/2024.2.0",
+      "path": "nice3point.revit.toolkit/2024.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "License.md",
         "Readme.md",
+        "analyzers/dotnet/roslyn4.14/cs/Nice3point.Revit.Toolkit.Analyzers.CodeFixers.dll",
+        "analyzers/dotnet/roslyn4.14/cs/Nice3point.Revit.Toolkit.Analyzers.dll",
+        "analyzers/dotnet/roslyn4.14/cs/Nice3point.Revit.Toolkit.SourceGenerators.dll",
+        "analyzers/dotnet/roslyn5.0/cs/Nice3point.Revit.Toolkit.Analyzers.CodeFixers.dll",
+        "analyzers/dotnet/roslyn5.0/cs/Nice3point.Revit.Toolkit.Analyzers.dll",
+        "analyzers/dotnet/roslyn5.0/cs/Nice3point.Revit.Toolkit.SourceGenerators.dll",
         "images/PackageIcon.png",
         "lib/net48/Nice3point.Revit.Toolkit.dll",
         "lib/net48/Nice3point.Revit.Toolkit.xml",
-        "nice3point.revit.toolkit.2024.2.0.nupkg.sha512",
+        "nice3point.revit.toolkit.2024.3.0.nupkg.sha512",
         "nice3point.revit.toolkit.nuspec"
       ]
     },

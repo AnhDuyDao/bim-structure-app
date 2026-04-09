@@ -1,0 +1,156 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\BimStructure\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|d:\\bimstructure\\bimstructure\\viewmodels\\newprojectviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|solutionrelative:bimstructure\\viewmodels\\newprojectviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|d:\\bimstructure\\bimstructure\\services\\gridservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|solutionrelative:bimstructure\\services\\gridservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|d:\\bimstructure\\bimstructure\\services\\igridservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|solutionrelative:bimstructure\\services\\igridservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|d:\\bimstructure\\bimstructure\\models\\dbmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|solutionrelative:bimstructure\\models\\dbmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|d:\\bimstructure\\bimstructure\\models\\project.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|solutionrelative:bimstructure\\models\\project.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|d:\\bimstructure\\bimstructure\\models\\dbsection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|solutionrelative:bimstructure\\models\\dbsection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|d:\\bimstructure\\bimstructure\\models\\dbunitset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|solutionrelative:bimstructure\\models\\dbunitset.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|d:\\bimstructure\\bimstructure\\commands\\hellocommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E87946A5-A314-1D4F-933B-8EF704352610}|BimStructure\\BimStructure.csproj|solutionrelative:bimstructure\\commands\\hellocommand.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NewProjectViewModel.cs",
+              "DocumentMoniker": "D:\\BimStructure\\BimStructure\\ViewModels\\NewProjectViewModel.cs",
+              "RelativeDocumentMoniker": "BimStructure\\ViewModels\\NewProjectViewModel.cs",
+              "ToolTip": "D:\\BimStructure\\BimStructure\\ViewModels\\NewProjectViewModel.cs",
+              "RelativeToolTip": "BimStructure\\ViewModels\\NewProjectViewModel.cs",
+              "ViewState": "AgIAAEwAAAAAAAAAAAAwwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T18:53:07.575Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IGridService.cs",
+              "DocumentMoniker": "D:\\BimStructure\\BimStructure\\Services\\IGridService.cs",
+              "RelativeDocumentMoniker": "BimStructure\\Services\\IGridService.cs",
+              "ToolTip": "D:\\BimStructure\\BimStructure\\Services\\IGridService.cs",
+              "RelativeToolTip": "BimStructure\\Services\\IGridService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T18:53:00.339Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DBModel.cs",
+              "DocumentMoniker": "D:\\BimStructure\\BimStructure\\Models\\DBModel.cs",
+              "RelativeDocumentMoniker": "BimStructure\\Models\\DBModel.cs",
+              "ToolTip": "D:\\BimStructure\\BimStructure\\Models\\DBModel.cs",
+              "RelativeToolTip": "BimStructure\\Models\\DBModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T18:52:36.164Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DBSection.cs",
+              "DocumentMoniker": "D:\\BimStructure\\BimStructure\\Models\\DBSection.cs",
+              "RelativeDocumentMoniker": "BimStructure\\Models\\DBSection.cs",
+              "ToolTip": "D:\\BimStructure\\BimStructure\\Models\\DBSection.cs",
+              "RelativeToolTip": "BimStructure\\Models\\DBSection.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T18:52:02.655Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DBUnitSet.cs",
+              "DocumentMoniker": "D:\\BimStructure\\BimStructure\\Models\\DBUnitSet.cs",
+              "RelativeDocumentMoniker": "BimStructure\\Models\\DBUnitSet.cs",
+              "ToolTip": "D:\\BimStructure\\BimStructure\\Models\\DBUnitSet.cs",
+              "RelativeToolTip": "BimStructure\\Models\\DBUnitSet.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T18:51:57.494Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Project.cs",
+              "DocumentMoniker": "D:\\BimStructure\\BimStructure\\Models\\Project.cs",
+              "RelativeDocumentMoniker": "BimStructure\\Models\\Project.cs",
+              "ToolTip": "D:\\BimStructure\\BimStructure\\Models\\Project.cs*",
+              "RelativeToolTip": "BimStructure\\Models\\Project.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T18:51:40.297Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GridService.cs",
+              "DocumentMoniker": "D:\\BimStructure\\BimStructure\\Services\\GridService.cs",
+              "RelativeDocumentMoniker": "BimStructure\\Services\\GridService.cs",
+              "ToolTip": "D:\\BimStructure\\BimStructure\\Services\\GridService.cs",
+              "RelativeToolTip": "BimStructure\\Services\\GridService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T18:48:58.371Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "HelloCommand.cs",
+              "DocumentMoniker": "D:\\BimStructure\\BimStructure\\Commands\\HelloCommand.cs",
+              "RelativeDocumentMoniker": "BimStructure\\Commands\\HelloCommand.cs",
+              "ToolTip": "D:\\BimStructure\\BimStructure\\Commands\\HelloCommand.cs",
+              "RelativeToolTip": "BimStructure\\Commands\\HelloCommand.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-31T18:48:31.164Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -14,16 +14,18 @@ public sealed partial class NewProjectViewModel : ObservableObject
     private readonly IDialogService _dialogService;
     private readonly IUnitService _unitService;
     private readonly IMaterialService _materialService;
+    private readonly IProjectService _projectService;
     private DBUnitSet? _importedUnits;
 
     public NewProjectViewModel(
         IDialogService dialogService,
         IUnitService unitService,
-        IMaterialService materialService)
+        IMaterialService materialService, IProjectService projectService)
     {
         _dialogService = dialogService;
         _unitService = unitService;
         _materialService = materialService;
+        _projectService = projectService;
 
         LoadMaterial();
     }
@@ -104,6 +106,16 @@ public sealed partial class NewProjectViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanCreateProject))]
     private void CreateProject()
     {
+        var project = new Project
+        {
+            Name = ProjectName,
+            RootPath = FolderPath,
+            DBFileName = ImportFile,
+            Concrete = SelectedConcreteMaterial,
+            Steel = SelectedSteelMaterial
+        };
+
+        _projectService.CreateProject(project);
         RequestClose?.Invoke(true);
     }
 
@@ -117,7 +129,7 @@ public sealed partial class NewProjectViewModel : ObservableObject
     {
         CreateProjectCommand.NotifyCanExecuteChanged();
     }
-
+    
     partial void OnFolderPathChanged(string value)
     {
         CreateProjectCommand.NotifyCanExecuteChanged();

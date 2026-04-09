@@ -6,7 +6,7 @@ public sealed partial class BuildModelView
 {
     public BuildModelView(BuildModelViewModel viewModel)
     {
-        DataContext = viewModel;
         InitializeComponent();
+        DataContext = viewModel;
     }
 }

@@ -6,8 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Title="Dựng Mô Hình"
-    Width="1652"
-    Height="821"
+    Width="1400"
+    Height="750"
     MinWidth="1200"
     MinHeight="700"
     WindowStartupLocation="CenterScreen">
@@ -20,7 +20,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0" Header="Thông tin chung" Padding="8">
+        <GroupBox Height="225" Grid.Row="0" Header="Thông tin chung" Padding="8">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -32,20 +32,39 @@
 
                 <GroupBox Grid.Column="0" Header="Lưới Phương X" Padding="8">
                     <DataGrid
-                        x:Name="DgvGridX"
-                        AutoGenerateColumns="True"
+                        ItemsSource="{Binding GridX}"
+                        AutoGenerateColumns="False"
+                        ColumnWidth="*"
                         CanUserAddRows="False"
                         CanUserDeleteRows="False"
-                        HeadersVisibility="All" />
+                        HeadersVisibility="All">
+
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tên Lưới" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Tọa Độ Phương X" Binding="{Binding Coordinate}" />
+                            <DataGridTextColumn Header="Phương" Binding="{Binding Direction}" />
+                        </DataGrid.Columns>
+
+                    </DataGrid>
+                    
                 </GroupBox>
 
                 <GroupBox Grid.Column="2" Header="Lưới Phương Y" Padding="8">
                     <DataGrid
-                        x:Name="DgvGridY"
-                        AutoGenerateColumns="True"
+                        ItemsSource="{Binding GridY}"
+                        AutoGenerateColumns="False"
+                        ColumnWidth="*"
                         CanUserAddRows="False"
                         CanUserDeleteRows="False"
-                        HeadersVisibility="All" />
+                        HeadersVisibility="All" >
+                        
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tên Lưới" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Tọa Độ Phương Y" Binding="{Binding Coordinate}" />
+                            <DataGridTextColumn Header="Phương" Binding="{Binding Direction}" />
+                        </DataGrid.Columns>
+
+                    </DataGrid>
                 </GroupBox>
 
                 <GroupBox Grid.Column="4" Header="Cao Độ" Padding="8">
@@ -64,6 +83,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="12" />
                 <ColumnDefinition Width="*" />
+                
             </Grid.ColumnDefinitions>
 
             <GroupBox Grid.Column="0" Header="Thông tin phần tử dầm" Padding="8">
@@ -88,8 +108,8 @@
         <Button
             Grid.Row="4"
             x:Name="BtnBuildModel"
-            Width="180"
-            Height="42"
+            Width="200"
+            Height="40"
             HorizontalAlignment="Right"
             FontSize="14"
             Content="Dựng mô hình" />
