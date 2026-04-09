@@ -1,5 +1,6 @@
 ﻿using BimStructure.Models;
 using System.Data;
+using System.Globalization;
 
 namespace BimStructure.Repository;
 
@@ -21,7 +22,6 @@ public class BaseStoryRepository : IBaseStoryRepository
             .Select(row => new DBStory
             {
                 Name = GetString(row,"BSName"),
-                Height = 0,
                 Elevation = GetDouble(row, "BSElev")
             })
             .ToList(); 
@@ -34,6 +34,6 @@ public class BaseStoryRepository : IBaseStoryRepository
 
     private static double GetDouble(DataRow row, string columnName)
     {
-        return row[columnName] is DBNull ? 0d : Convert.ToDouble(row[columnName]);
+        return row[columnName] is DBNull ? 0d : Convert.ToDouble(row[columnName], CultureInfo.InvariantCulture);
     }
 }

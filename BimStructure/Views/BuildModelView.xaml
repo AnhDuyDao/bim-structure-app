@@ -37,6 +37,7 @@
                         ColumnWidth="*"
                         CanUserAddRows="False"
                         CanUserDeleteRows="False"
+                        CanUserSortColumns="False"
                         HeadersVisibility="All">
 
                         <DataGrid.Columns>
@@ -56,6 +57,7 @@
                         ColumnWidth="*"
                         CanUserAddRows="False"
                         CanUserDeleteRows="False"
+                        CanUserSortColumns="False"
                         HeadersVisibility="All" >
                         
                         <DataGrid.Columns>
@@ -69,11 +71,20 @@
 
                 <GroupBox Grid.Column="4" Header="Cao Độ" Padding="8">
                     <DataGrid
-                        x:Name="DgvHeight"
-                        AutoGenerateColumns="True"
+                        ItemsSource="{Binding GridHeight}"
+                        AutoGenerateColumns="False"
+                        ColumnWidth="*"
                         CanUserAddRows="False"
                         CanUserDeleteRows="False"
-                        HeadersVisibility="All" />
+                        CanUserSortColumns="False"
+                        HeadersVisibility="All" >
+                        
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Tầng" Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Chiều cao" Binding="{Binding Height}" />
+                            <DataGridTextColumn Header="Cao độ" Binding="{Binding Elevation}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </GroupBox>
             </Grid>
         </GroupBox>

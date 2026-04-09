@@ -22,7 +22,6 @@ public class StoryRepository : IStoryRepository
             {
                 Name = GetString(row,"Name"),
                 Height = GetDouble(row,"Height"),
-                Elevation = 0
             })
             .ToList(); 
     }

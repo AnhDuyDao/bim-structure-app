@@ -34,7 +34,7 @@ public static class Host
         services.AddSingleton<IGridService, GridService>();
         services.AddSingleton<IProjectService, ProjectService>();
         services.AddSingleton<IBaseStoryRepository, BaseStoryRepository>();
-        services.AddSingleton<IStoryService, StoryService>();
+        services.AddSingleton<IStoryRepository, StoryRepository>();
         services.AddSingleton<IStoryService, StoryService>();
 
         //MVVM

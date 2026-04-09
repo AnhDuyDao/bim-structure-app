@@ -8,14 +8,18 @@ public sealed class BuildModelViewModel : ObservableObject
 {
     private readonly IGridService _gridService;
     private readonly IProjectService _projectService;
+    private readonly IStoryService _storyService;
     
     public ObservableCollection<DBGrid> GridX { get; set; } = new();
     public ObservableCollection<DBGrid> GridY { get; set; } = new();
 
-    public BuildModelViewModel(IGridService gridService, IProjectService projectService)
+    public ObservableCollection<DBStory> GridHeight { get; set; } = new();
+
+    public BuildModelViewModel(IGridService gridService, IProjectService projectService, IStoryService storyService)
     {
         _gridService = gridService;
         _projectService = projectService;
+        _storyService = storyService;
         LoadGrids();
     }
     
@@ -28,9 +32,11 @@ public sealed class BuildModelViewModel : ObservableObject
 
         var databasePath = project.DBFileName; // hoặc xử lý thêm nếu cần
         var grids = _gridService.GetGrids(databasePath);
+        var stories = _storyService.GetAllStories(databasePath);
 
         GridX.Clear();
         GridY.Clear();
+        GridHeight.Clear();
 
         foreach (var grid in grids.Values)
         {
@@ -38,6 +44,11 @@ public sealed class BuildModelViewModel : ObservableObject
                 GridX.Add(grid);
             else
                 GridY.Add(grid);
+        }
+
+        foreach (var story in stories)
+        {
+            GridHeight.Add(story);
         }
     }
 }

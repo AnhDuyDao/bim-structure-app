@@ -18,19 +18,21 @@ public class StoryService : IStoryService
     
     public List<DBStory> GetAllStories(string databasePath)
     {
-        var baseStory = _baseStoryRepository.GetBaseStory(databasePath);
+        var baseStories = _baseStoryRepository.GetBaseStory(databasePath);
         var stories = _storyRepository.GetStories(databasePath);
 
-        var allStories = baseStory.Concat(stories).ToList();
+        var baseStory = baseStories.First();
         
-        double currentElevation = allStories.First().Elevation;
-
-        for (int i = 1; i < allStories.Count; i++)
+        stories.Add(baseStory);
+        
+        double currentElevation = stories.Last().Elevation;
+        
+        for(int i = stories.Count - 1; i >= 0; i--)
         {
-            currentElevation += allStories[i].Height;
-            allStories[i].Elevation = currentElevation;
+            var story = stories[i];
+            currentElevation += story.Height;
+            story.Elevation = currentElevation;
         }
-
-        return allStories;
+        return stories;
     }
 }
