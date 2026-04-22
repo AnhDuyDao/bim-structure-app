@@ -21,18 +21,39 @@ public class StoryService : IStoryService
         var baseStories = _baseStoryRepository.GetBaseStory(databasePath);
         var stories = _storyRepository.GetStories(databasePath);
 
+        if (baseStories.Count == 0)
+        {
+            throw new InvalidOperationException("Khong tim thay base story.");
+        }
+
+        if (stories.Count == 0)
+        {
+            throw new InvalidOperationException("Khong tim thay story definitions.");
+        }
+        
         var baseStory = baseStories.First();
+        var result = new DBStory[stories.Count];
+        var currentElevation = baseStory.Elevation;
         
-        stories.Add(baseStory);
-        
-        double currentElevation = stories.Last().Elevation;
-        
-        for(int i = stories.Count - 1; i >= 0; i--)
+        for (var i = stories.Count - 1; i >= 0; i--)
         {
             var story = stories[i];
             currentElevation += story.Height;
-            story.Elevation = currentElevation;
+
+            result[i] = new DBStory
+            {
+                Name = story.Name,
+                Height = story.Height,
+                Elevation = currentElevation
+            };
         }
-        return stories;
+        return result
+            .Append(new DBStory
+            {
+                Name = baseStory.Name,
+                Height = baseStory.Height,
+                Elevation = baseStory.Elevation
+            })
+            .ToList();
     }
 }
