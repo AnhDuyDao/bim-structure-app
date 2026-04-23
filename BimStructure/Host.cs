@@ -37,6 +37,9 @@ public static class Host
         services.AddSingleton<IBaseStoryRepository, BaseStoryRepository>();
         services.AddSingleton<IStoryRepository, StoryRepository>();
         services.AddSingleton<IStoryService, StoryService>();
+        services.AddSingleton<IPointBaysRepository, PointBaysRepository>();
+        services.AddSingleton<IColumnBaysRepository, ColumnBaysRepository>();
+        services.AddSingleton<IBeamBaysRepository, BeamBaysRepository>();
 
         //MVVM
         services.AddTransient<BimStructureViewModel>();

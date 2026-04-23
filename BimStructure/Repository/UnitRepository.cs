@@ -17,6 +17,6 @@ public sealed class UnitRepository : IUnitRepository
     public ProgramControlDto GetProgramControl(string databasePath)
     {
         return _queryExecutor.QuerySingleOrDefault(databasePath, ProgramControlQuery, ProgramControlMapper.Map)
-            ?? throw new InvalidOperationException("Khong tim thay du lieu trong bang [Program Control].");
+            ?? throw new InvalidOperationException("Not found value in [Program Control].");
     }
 }
