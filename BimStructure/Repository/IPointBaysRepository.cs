@@ -1,5 +1,5 @@
 ﻿
-using BimStructure.Repository.Dtos;
+using BimStructure.Dtos;
 
 namespace BimStructure.Repository;
 

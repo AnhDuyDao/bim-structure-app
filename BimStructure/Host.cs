@@ -47,6 +47,8 @@ public static class Host
         services.AddSingleton<IColumnBaysRepository, ColumnBaysRepository>();
         services.AddSingleton<IBeamBaysRepository, BeamBaysRepository>();
         services.AddSingleton<ISectionRepository, SectionRepository>();
+        services.AddSingleton<IFrameRepository, FrameRepository>();
+        services.AddSingleton<IFrameService, FrameService>();
 
         //MVVM
         services.AddTransient<NewProjectViewModel>();

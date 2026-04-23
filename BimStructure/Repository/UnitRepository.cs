@@ -1,5 +1,5 @@
-using BimStructure.Repository.Dtos;
-using BimStructure.Repository.Mappers;
+using BimStructure.Dtos;
+using BimStructure.Mappers;
 using Microsoft.Extensions.Logging;
 
 namespace BimStructure.Repository;

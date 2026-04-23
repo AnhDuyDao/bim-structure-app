@@ -1,8 +1,8 @@
 using System.Data;
-using BimStructure.Repository.Dtos;
+using BimStructure.Dtos;
 using BimStructure.Utils;
 
-namespace BimStructure.Repository.Mappers;
+namespace BimStructure.Mappers;
 
 public static class ProgramControlMapper
 {

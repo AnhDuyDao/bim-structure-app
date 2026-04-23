@@ -1,4 +1,4 @@
-namespace BimStructure.Repository.Dtos;
+namespace BimStructure.Dtos;
 
 public sealed class StoryDefinitionDto
 {

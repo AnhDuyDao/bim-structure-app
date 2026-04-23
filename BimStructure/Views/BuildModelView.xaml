@@ -33,6 +33,7 @@
                 <GroupBox Grid.Column="0" Header="Lưới Phương X" Padding="8">
                     <DataGrid
                         ItemsSource="{Binding GridX}"
+                        IsReadOnly="True"
                         AutoGenerateColumns="False"
                         ColumnWidth="*"
                         CanUserAddRows="False"
@@ -52,6 +53,7 @@
                 <GroupBox Grid.Column="2" Header="Lưới Phương Y" Padding="8">
                     <DataGrid
                         ItemsSource="{Binding GridY}"
+                        IsReadOnly="True"
                         AutoGenerateColumns="False"
                         ColumnWidth="*"
                         CanUserAddRows="False"
@@ -71,6 +73,7 @@
                 <GroupBox Grid.Column="4" Header="Cao Độ" Padding="8">
                     <DataGrid
                         ItemsSource="{Binding GridHeight}"
+                        IsReadOnly="True"
                         AutoGenerateColumns="False"
                         ColumnWidth="*"
                         CanUserAddRows="False"
@@ -98,6 +101,7 @@
             <GroupBox Grid.Column="0" Header="Thông tin phần tử dầm" Padding="8">
                 <DataGrid
                     ItemsSource="{Binding GridDetailsBeam}"
+                    IsReadOnly="True"
                     AutoGenerateColumns="False"
                     ColumnWidth="*"
                     CanUserAddRows="False"
@@ -107,8 +111,8 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Tầng" Binding="{Binding Story.Name}" />
-                        <DataGridTextColumn Header="Tên phần tử" Binding="{Binding Height}" />
-                        <DataGridTextColumn Header="Tiết diện (bxh)" Binding="{Binding Section.Elevation}" />
+                        <DataGridTextColumn Header="Tên phần tử" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Tiết diện (bxh)" Binding="{Binding Section.Name}" />
                         <DataGridTextColumn Header="Chiều dài (m)" Binding="{Binding Length}" />
                     </DataGrid.Columns>
                 </DataGrid>
@@ -117,6 +121,7 @@
             <GroupBox Grid.Column="2" Header="Thông tin phần tử cột" Padding="8">
                 <DataGrid
                     ItemsSource="{Binding GridDetailsColumn}"
+                    IsReadOnly="True"
                     AutoGenerateColumns="False"
                     ColumnWidth="*"
                     CanUserAddRows="False"
@@ -126,8 +131,8 @@
 
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Tầng" Binding="{Binding Story.Name}" />
-                        <DataGridTextColumn Header="Tên phần tử" Binding="{Binding Height}" />
-                        <DataGridTextColumn Header="Tiết diện (bxh)" Binding="{Binding Section.Elevation}" />
+                        <DataGridTextColumn Header="Tên phần tử" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Tiết diện (bxh)" Binding="{Binding Section.Name}" />
                         <DataGridTextColumn Header="Chiều dài (m)" Binding="{Binding Length}" />
                     </DataGrid.Columns>
                 </DataGrid>

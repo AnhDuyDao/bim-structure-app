@@ -1,10 +1,10 @@
-using BimStructure.Dtos;
+﻿using BimStructure.Dtos;
 
 namespace BimStructure.Repository;
 
-public interface IStoryRepository
+public interface IFrameRepository
 {
-    Task<IReadOnlyList<StoryDefinitionDto>> GetStoriesAsync(
+    Task<IReadOnlyList<FrameDto>> GetFramesAsync(
         string databasePath,
         CancellationToken cancellationToken = default);
 }
