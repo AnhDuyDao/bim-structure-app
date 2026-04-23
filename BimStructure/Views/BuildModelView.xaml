@@ -47,7 +47,6 @@
                         </DataGrid.Columns>
 
                     </DataGrid>
-                    
                 </GroupBox>
 
                 <GroupBox Grid.Column="2" Header="Lưới Phương Y" Padding="8">
@@ -58,8 +57,8 @@
                         CanUserAddRows="False"
                         CanUserDeleteRows="False"
                         CanUserSortColumns="False"
-                        HeadersVisibility="All" >
-                        
+                        HeadersVisibility="All">
+
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Tên Lưới" Binding="{Binding Name}" />
                             <DataGridTextColumn Header="Tọa Độ Phương Y" Binding="{Binding Coordinate}" />
@@ -77,8 +76,8 @@
                         CanUserAddRows="False"
                         CanUserDeleteRows="False"
                         CanUserSortColumns="False"
-                        HeadersVisibility="All" >
-                        
+                        HeadersVisibility="All">
+
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Tầng" Binding="{Binding Name}" />
                             <DataGridTextColumn Header="Chiều cao" Binding="{Binding Height}" />
@@ -94,7 +93,6 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="12" />
                 <ColumnDefinition Width="*" />
-                
             </Grid.ColumnDefinitions>
 
             <GroupBox Grid.Column="0" Header="Thông tin phần tử dầm" Padding="8">

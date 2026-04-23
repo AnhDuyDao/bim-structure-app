@@ -40,7 +40,6 @@ public static class Host
 
         //MVVM
         services.AddTransient<BimStructureViewModel>();
-        services.AddTransient<BimStructureView>();
         services.AddTransient<NewProjectViewModel>();
         services.AddTransient<NewProjectView>();
         services.AddTransient<BuildModelViewModel>();
