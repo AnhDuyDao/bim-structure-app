@@ -59,7 +59,7 @@ public sealed class AccessQueryExecutor : IAccessQueryExecutor
         var result = map(reader);
         if (reader.Read())
         {
-            throw new InvalidOperationException("Query tra ve hon 1 dong.");
+            throw new InvalidOperationException("Query return more than once.");
         }
 
         return result;

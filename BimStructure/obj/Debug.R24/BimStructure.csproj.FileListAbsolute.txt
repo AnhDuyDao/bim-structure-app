@@ -14,10 +14,7 @@ D:\BimStructure\BimStructure\bin\Debug.R24\System.Numerics.Vectors.dll
 D:\BimStructure\BimStructure\bin\Debug.R24\System.Runtime.CompilerServices.Unsafe.dll
 D:\BimStructure\BimStructure\bin\Debug.R24\System.Threading.Tasks.Extensions.dll
 D:\BimStructure\BimStructure\obj\Debug.R24\BimStructure.csproj.AssemblyReference.cache
-D:\BimStructure\BimStructure\obj\Debug.R24\Views\BimStructureView.g.cs
 D:\BimStructure\BimStructure\obj\Debug.R24\BimStructure_MarkupCompile.cache
-D:\BimStructure\BimStructure\obj\Debug.R24\BimStructure_MarkupCompile.lref
-D:\BimStructure\BimStructure\obj\Debug.R24\Views\BimStructureView.baml
 D:\BimStructure\BimStructure\obj\Debug.R24\BimStructure.g.resources
 D:\BimStructure\BimStructure\obj\Debug.R24\BimStructure.GeneratedMSBuildEditorConfig.editorconfig
 D:\BimStructure\BimStructure\obj\Debug.R24\BimStructure.AssemblyInfoInputs.cache

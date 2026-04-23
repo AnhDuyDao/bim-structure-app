@@ -1,7 +1,7 @@
 using System.Data;
 using System.Globalization;
 
-namespace BimStructure.Repository;
+namespace BimStructure.Utils;
 
 public static class DataRecordExtensions
 {
@@ -10,7 +10,7 @@ public static class DataRecordExtensions
         var value = record[columnName];
         if (value is null || value is DBNull)
         {
-            throw new InvalidOperationException($"Cot '{columnName}' khong duoc de null.");
+            throw new InvalidOperationException($"Column '{columnName}' is required.");
         }
 
         return value.ToString()!;
