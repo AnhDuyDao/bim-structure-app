@@ -1,6 +1,6 @@
 using BimStructure.Dtos;
 using BimStructure.Models;
-using BimStructure.Repository;
+using BimStructure.Repositories;
 
 namespace BimStructure.Services;
 

@@ -1,6 +1,6 @@
 ﻿using BimStructure.Models;
 
-namespace BimStructure.Repository;
+namespace BimStructure.Repositories;
 
 public class MaterialRepository : IMaterialRepository
 {

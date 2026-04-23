@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 
-namespace BimStructure.Repository;
+namespace BimStructure.Repositories;
 
 public abstract class RepositoryBase
 {

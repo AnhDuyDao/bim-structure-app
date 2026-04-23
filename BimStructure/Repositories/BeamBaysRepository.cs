@@ -2,7 +2,7 @@
 using BimStructure.Mappers;
 using Microsoft.Extensions.Logging;
 
-namespace BimStructure.Repository;
+namespace BimStructure.Repositories;
 
 public sealed class BeamBaysRepository : RepositoryBase, IBeamBaysRepository
 {

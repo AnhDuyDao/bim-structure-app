@@ -1,6 +1,6 @@
 ﻿using BimStructure.Mappers;
 using BimStructure.Models;
-using BimStructure.Repository;
+using BimStructure.Repositories;
 
 namespace BimStructure.Services;
 

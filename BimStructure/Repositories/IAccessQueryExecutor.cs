@@ -1,7 +1,7 @@
 using System.Data;
 using System.Data.OleDb;
 
-namespace BimStructure.Repository;
+namespace BimStructure.Repositories;
 
 public interface IAccessQueryExecutor
 {

@@ -1,6 +1,6 @@
+using BimStructure.Configurations;
+using BimStructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using BimStructure.Configuration;
-using BimStructure.Repository;
 using BimStructure.Services;
 using BimStructure.Views;
 using BimStructure.ViewModels;

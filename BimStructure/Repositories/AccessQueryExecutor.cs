@@ -1,10 +1,10 @@
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
-using BimStructure.Configuration;
+using BimStructure.Configurations;
 using Microsoft.Extensions.Logging;
 
-namespace BimStructure.Repository;
+namespace BimStructure.Repositories;
 
 public sealed class AccessQueryExecutor : IAccessQueryExecutor
 {

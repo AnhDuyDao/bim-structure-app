@@ -1,7 +1,7 @@
 ﻿
 using BimStructure.Dtos;
 
-namespace BimStructure.Repository;
+namespace BimStructure.Repositories;
 
 public interface IPointBaysRepository
 {

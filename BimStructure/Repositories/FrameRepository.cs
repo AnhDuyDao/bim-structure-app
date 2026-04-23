@@ -1,8 +1,8 @@
 ﻿using BimStructure.Dtos;
 using BimStructure.Mappers;
-
-namespace BimStructure.Repository;
 using Microsoft.Extensions.Logging;
+
+namespace BimStructure.Repositories;
 
 public class FrameRepository : RepositoryBase, IFrameRepository
 {

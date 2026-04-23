@@ -1,9 +1,8 @@
-using System;
 using System.Configuration;
 using System.IO;
 using System.Reflection;
 
-namespace BimStructure.Configuration;
+namespace BimStructure.Configurations;
 
 public sealed class PluginConfiguration
 {
