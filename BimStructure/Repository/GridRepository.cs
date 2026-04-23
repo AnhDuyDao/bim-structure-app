@@ -1,42 +1,22 @@
-using System.Data;
-using System.Linq;
-using BimStructure.Models;
+using BimStructure.Repository.Dtos;
+using BimStructure.Repository.Mappers;
 
 namespace BimStructure.Repository;
 
 public sealed class GridRepository : IGridRepository
 {
-    private const string GridDefinitionsQuery = "SELECT * FROM [Grid Definitions - Grid Lines]";
+    private const string GridDefinitionsQuery =
+        "SELECT [ID], [Grid Line Type], [Ordinate] FROM [Grid Definitions - Grid Lines]";
 
-    private readonly IAccessRepository _accessRepository;
+    private readonly IAccessQueryExecutor _queryExecutor;
 
-    public GridRepository(IAccessRepository accessRepository)
+    public GridRepository(IAccessQueryExecutor queryExecutor)
     {
-        _accessRepository = accessRepository;
+        _queryExecutor = queryExecutor;
     }
 
-    public Dictionary<string, DBGrid> GetGrids(string databasePath)
+    public IReadOnlyList<GridLineDto> GetGridLines(string databasePath)
     {
-        var table = _accessRepository.GetData(databasePath, GridDefinitionsQuery);
-        return table.Rows.Cast<DataRow>().ToDictionary(
-            row => GetString(row, "ID"),
-            row => new DBGrid
-            {
-                Name = GetString(row, "ID"),
-                Direction = GetString(row, "Grid Line Type") == "X (Cartesian)"
-                    ? GridDirection.X
-                    : GridDirection.Y,
-                Coordinate = GetDouble(row, "Ordinate")
-            });
-    }
-
-    private static string GetString(DataRow row, string columnName)
-    {
-        return row[columnName]?.ToString() ?? string.Empty;
-    }
-
-    private static double GetDouble(DataRow row, string columnName)
-    {
-        return row[columnName] is DBNull ? 0d : Convert.ToDouble(row[columnName]);
+        return _queryExecutor.Query(databasePath, GridDefinitionsQuery, GridLineMapper.Map);
     }
 }

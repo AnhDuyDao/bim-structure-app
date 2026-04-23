@@ -1,33 +1,22 @@
-using System;
+using BimStructure.Repository.Dtos;
+using BimStructure.Repository.Mappers;
 
 namespace BimStructure.Repository;
 
 public sealed class UnitRepository : IUnitRepository
 {
-    private const string ProgramControlQuery = "SELECT [CurrUnits] FROM [Program Control];";
+    private const string ProgramControlQuery = "SELECT [CurrUnits] FROM [Program Control]";
 
-    private readonly IAccessRepository _accessRepository;
+    private readonly IAccessQueryExecutor _queryExecutor;
 
-    public UnitRepository(IAccessRepository accessRepository)
+    public UnitRepository(IAccessQueryExecutor queryExecutor)
     {
-        _accessRepository = accessRepository;
+        _queryExecutor = queryExecutor;
     }
 
-    public string GetCurrentUnits(string databasePath)
+    public ProgramControlDto GetProgramControl(string databasePath)
     {
-        var table = _accessRepository.GetData(databasePath, ProgramControlQuery);
-
-        if (table.Rows.Count == 0)
-        {
-            throw new InvalidOperationException("Khong tim thay du lieu trong bang [Program Control].");
-        }
-
-        var currUnits = table.Rows[0]["CurrUnits"]?.ToString();
-        if (string.IsNullOrWhiteSpace(currUnits))
-        {
-            throw new InvalidOperationException("Khong doc duoc gia tri [CurrUnits].");
-        }
-
-        return currUnits;
+        return _queryExecutor.QuerySingleOrDefault(databasePath, ProgramControlQuery, ProgramControlMapper.Map)
+            ?? throw new InvalidOperationException("Khong tim thay du lieu trong bang [Program Control].");
     }
 }

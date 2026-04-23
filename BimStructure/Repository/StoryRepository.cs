@@ -1,38 +1,21 @@
-﻿using BimStructure.Models;
-using System.Data;
+using BimStructure.Repository.Dtos;
+using BimStructure.Repository.Mappers;
 
 namespace BimStructure.Repository;
 
-public class StoryRepository : IStoryRepository
+public sealed class StoryRepository : IStoryRepository
 {
-    private const string StoriesDefinitionsQuery = "SELECT * FROM [Story Definitions]";
+    private const string StoriesDefinitionsQuery = "SELECT [Name], [Height] FROM [Story Definitions]";
 
-    private readonly IAccessRepository _accessRepository;
+    private readonly IAccessQueryExecutor _queryExecutor;
 
-    public StoryRepository(IAccessRepository accessRepository)
+    public StoryRepository(IAccessQueryExecutor queryExecutor)
     {
-        _accessRepository = accessRepository;
+        _queryExecutor = queryExecutor;
     }
 
-    public List<DBStory> GetStories(string databasePath)
+    public IReadOnlyList<StoryDefinitionDto> GetStories(string databasePath)
     {
-        var table = _accessRepository.GetData(databasePath, StoriesDefinitionsQuery);
-        return table.Rows.Cast<DataRow>()
-            .Select(row => new DBStory
-            {
-                Name = GetString(row,"Name"),
-                Height = GetDouble(row,"Height"),
-            })
-            .ToList(); 
-    }
-
-    private static string GetString(DataRow row, string columnName)
-    {
-        return row[columnName]?.ToString() ?? string.Empty;
-    }
-
-    private static double GetDouble(DataRow row, string columnName)
-    {
-        return row[columnName] is DBNull ? 0d : Convert.ToDouble(row[columnName]);
+        return _queryExecutor.Query(databasePath, StoriesDefinitionsQuery, StoryDefinitionMapper.Map);
     }
 }

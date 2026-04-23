@@ -1,8 +1,8 @@
-using BimStructure.Models;
+using BimStructure.Repository.Dtos;
 
 namespace BimStructure.Repository;
 
 public interface IGridRepository
 {
-    Dictionary<string, DBGrid> GetGrids(string databasePath);
+    IReadOnlyList<GridLineDto> GetGridLines(string databasePath);
 }

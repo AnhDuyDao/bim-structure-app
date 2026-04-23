@@ -1,39 +1,22 @@
-﻿using BimStructure.Models;
-using System.Data;
-using System.Globalization;
+using BimStructure.Repository.Dtos;
+using BimStructure.Repository.Mappers;
 
 namespace BimStructure.Repository;
 
-public class BaseStoryRepository : IBaseStoryRepository
+public sealed class BaseStoryRepository : IBaseStoryRepository
 {
-    private const string StoryBaseDefinitionsQuery = "SELECT * FROM [Tower and Base Story Definitions]";
+    private const string StoryBaseDefinitionsQuery =
+        "SELECT [BSName], [BSElev] FROM [Tower and Base Story Definitions]";
 
-    private readonly IAccessRepository _accessRepository;
+    private readonly IAccessQueryExecutor _queryExecutor;
 
-    public BaseStoryRepository(IAccessRepository accessRepository)
+    public BaseStoryRepository(IAccessQueryExecutor queryExecutor)
     {
-        _accessRepository = accessRepository;
+        _queryExecutor = queryExecutor;
     }
 
-    public List<DBStory> GetBaseStory(string databasePath)
+    public IReadOnlyList<BaseStoryDto> GetBaseStories(string databasePath)
     {
-        var table = _accessRepository.GetData(databasePath, StoryBaseDefinitionsQuery);
-        return table.Rows.Cast<DataRow>()
-            .Select(row => new DBStory
-            {
-                Name = GetString(row,"BSName"),
-                Elevation = GetDouble(row, "BSElev")
-            })
-            .ToList(); 
-    }
-
-    private static string GetString(DataRow row, string columnName)
-    {
-        return row[columnName]?.ToString() ?? string.Empty;
-    }
-
-    private static double GetDouble(DataRow row, string columnName)
-    {
-        return row[columnName] is DBNull ? 0d : Convert.ToDouble(row[columnName], CultureInfo.InvariantCulture);
+        return _queryExecutor.Query(databasePath, StoryBaseDefinitionsQuery, BaseStoryMapper.Map);
     }
 }

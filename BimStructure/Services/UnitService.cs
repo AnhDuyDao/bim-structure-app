@@ -16,8 +16,8 @@ public sealed class UnitService : IUnitService
 
     public DBUnitSet GetUnits(string databasePath)
     {
-        var currUnits = _unitRepository.GetCurrentUnits(databasePath);
-        return ParseUnits(currUnits);
+        var programControl = _unitRepository.GetProgramControl(databasePath);
+        return ParseUnits(programControl.CurrentUnits);
     }
 
     private static DBUnitSet ParseUnits(string currUnits)

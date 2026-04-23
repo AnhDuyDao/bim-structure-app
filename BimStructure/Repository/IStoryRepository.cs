@@ -1,8 +1,8 @@
-﻿using BimStructure.Models;
+using BimStructure.Repository.Dtos;
 
 namespace BimStructure.Repository;
 
 public interface IStoryRepository
 {
-    List<DBStory> GetStories(string databasePath);
+    IReadOnlyList<StoryDefinitionDto> GetStories(string databasePath);
 }

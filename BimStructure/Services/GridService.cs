@@ -1,11 +1,12 @@
-﻿using BimStructure.Models;
+using BimStructure.Models;
 using BimStructure.Repository;
 
 namespace BimStructure.Services;
 
-public class GridService : IGridService
+public sealed class GridService : IGridService
 {
     private readonly IGridRepository _gridRepository;
+
     public GridService(IGridRepository gridRepository)
     {
         _gridRepository = gridRepository;
@@ -13,7 +14,16 @@ public class GridService : IGridService
 
     public Dictionary<string, DBGrid> GetGrids(string databasePath)
     {
-        var grids = _gridRepository.GetGrids(databasePath);
-        return grids;
+        var gridLines = _gridRepository.GetGridLines(databasePath);
+        return gridLines.ToDictionary(
+            line => line.Id,
+            line => new DBGrid
+            {
+                Name = line.Id,
+                Direction = line.GridLineType == "X (Cartesian)"
+                    ? GridDirection.X
+                    : GridDirection.Y,
+                Coordinate = line.Ordinate
+            });
     }
 }
