@@ -13,7 +13,7 @@ public class BeamBaysRepository : IBeamBaysRepository
     {
         _queryExecutor = queryExecutor;
     }
-    public IReadOnlyList<MemberBayDto> GetColumnBays(string databasePath)
+    public IReadOnlyList<MemberBayDto> GetBeamBays(string databasePath)
     {
         return _queryExecutor.Query(databasePath, BeamBaysQuery, MemberBayMapper.Map);
     }

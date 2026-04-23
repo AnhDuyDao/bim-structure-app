@@ -4,5 +4,5 @@ namespace BimStructure.Repository;
 
 public interface IBeamBaysRepository
 {
-    IReadOnlyList<MemberBayDto> GetColumnBays(string databasePath);
+    IReadOnlyList<MemberBayDto> GetBeamBays(string databasePath);
 }
