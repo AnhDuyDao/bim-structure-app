@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
-using System.IO;
+using System.ComponentModel;
+using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using BimStructure.Models;
@@ -12,57 +13,36 @@ namespace BimStructure.ViewModels;
 public sealed partial class NewProjectViewModel : ObservableObject
 {
     private readonly IDialogService _dialogService;
-    private readonly IUnitService _unitService;
     private readonly IMaterialService _materialService;
-    private readonly IProjectService _projectService;
+    private readonly INewProjectAppService _newProjectAppService;
+    private readonly NewProjectDraft _draft = new();
     private DBUnitSet? _importedUnits;
 
     public NewProjectViewModel(
         IDialogService dialogService,
-        IUnitService unitService,
-        IMaterialService materialService, IProjectService projectService)
+        IMaterialService materialService,
+        INewProjectAppService newProjectAppService)
     {
         _dialogService = dialogService;
-        _unitService = unitService;
         _materialService = materialService;
-        _projectService = projectService;
+        _newProjectAppService = newProjectAppService;
+
+        _draft.PropertyChanged += OnDraftPropertyChanged;
 
         LoadMaterial();
     }
 
     public event Action<bool?>? RequestClose;
 
-    [ObservableProperty]
-    private string _projectName = "Du_an_1";
-
-    [ObservableProperty]
-    private string _folderPath = string.Empty;
-    
-    [ObservableProperty]
-    private string _importFile = string.Empty;
-
-    [ObservableProperty]
-    private string _lengthUnit = string.Empty;
-
-    [ObservableProperty]
-    private string _forceUnit = string.Empty;
+    public NewProjectDraft Draft => _draft;
 
     public ObservableCollection<ConcreteMaterial> ConcreteMaterials { get; } = new();
     public ObservableCollection<SteelMaterial> SteelMaterials { get; } = new();
 
-    [ObservableProperty]
-    private ConcreteMaterial? _selectedConcreteMaterial;
-
-    [ObservableProperty]
-    private SteelMaterial? _selectedSteelMaterial;
-
-    public string ImportFileName => Path.GetFileName(ImportFile);
-    
-    public bool CanCreateProject =>
-        !string.IsNullOrWhiteSpace(ProjectName) &&
-        !string.IsNullOrWhiteSpace(FolderPath) &&
-        !string.IsNullOrWhiteSpace(ImportFile) &&
-        _importedUnits is not null;
+    private bool CanCreateProject()
+    {
+        return Draft.HasRequiredValues && _importedUnits is not null;
+    }
 
     [RelayCommand]
     private void BrowseFolder()
@@ -70,7 +50,7 @@ public sealed partial class NewProjectViewModel : ObservableObject
         var selectedPath = _dialogService.PickFolder();
         if (!string.IsNullOrWhiteSpace(selectedPath))
         {
-            FolderPath = selectedPath!;
+            Draft.FolderPath = selectedPath!;
         }
     }
 
@@ -85,37 +65,38 @@ public sealed partial class NewProjectViewModel : ObservableObject
 
         try
         {
-            var units = _unitService.GetUnits(selectedPath!);
+            var units = _newProjectAppService.ReadUnits(selectedPath!);
 
             _importedUnits = units;
-            ImportFile = selectedPath!;
-            LengthUnit = UnitUtils.ToDisplayString(units.LengthUnit);
-            ForceUnit = UnitUtils.ToDisplayString(units.ForceUnit);
+            Draft.ImportFile = selectedPath!;
+            Draft.LengthUnit = UnitUtils.ToDisplayString(units.LengthUnit);
+            Draft.ForceUnit = UnitUtils.ToDisplayString(units.ForceUnit);
         }
         catch (Exception exception)
         {
             _importedUnits = null;
-            ImportFile = string.Empty;
-            LengthUnit = string.Empty;
-            ForceUnit = string.Empty;
+            Draft.ImportFile = string.Empty;
+            Draft.LengthUnit = string.Empty;
+            Draft.ForceUnit = string.Empty;
 
             _dialogService.ShowError("BimStructure", $"Khong the doc file Access.{Environment.NewLine}{exception.Message}");
         }
+
+        CreateProjectCommand.NotifyCanExecuteChanged();
     }
 
     [RelayCommand(CanExecute = nameof(CanCreateProject))]
     private void CreateProject()
     {
-        var project = new Project
+        _newProjectAppService.CreateProject(new CreateProjectRequest
         {
-            Name = ProjectName,
-            RootPath = FolderPath,
-            DBFileName = ImportFile,
-            Concrete = SelectedConcreteMaterial,
-            Steel = SelectedSteelMaterial
-        };
+            ProjectName = Draft.ProjectName,
+            FolderPath = Draft.FolderPath,
+            ImportFile = Draft.ImportFile,
+            Concrete = Draft.SelectedConcreteMaterial,
+            Steel = Draft.SelectedSteelMaterial
+        });
 
-        _projectService.CreateProject(project);
         RequestClose?.Invoke(true);
     }
 
@@ -123,22 +104,6 @@ public sealed partial class NewProjectViewModel : ObservableObject
     private void Cancel()
     {
         RequestClose?.Invoke(false);
-    }
-
-    partial void OnProjectNameChanged(string value)
-    {
-        CreateProjectCommand.NotifyCanExecuteChanged();
-    }
-    
-    partial void OnFolderPathChanged(string value)
-    {
-        CreateProjectCommand.NotifyCanExecuteChanged();
-    }
-
-    partial void OnImportFileChanged(string value)
-    {
-        OnPropertyChanged(nameof(ImportFileName));
-        CreateProjectCommand.NotifyCanExecuteChanged();
     }
 
     private void LoadMaterial()
@@ -155,7 +120,20 @@ public sealed partial class NewProjectViewModel : ObservableObject
             SteelMaterials.Add(steelMaterial);
         }
 
-        SelectedConcreteMaterial = ConcreteMaterials.Count > 0 ? ConcreteMaterials[0] : null;
-        SelectedSteelMaterial = SteelMaterials.Count > 0 ? SteelMaterials[0] : null;
+        Draft.SelectedConcreteMaterial = ConcreteMaterials.FirstOrDefault();
+        Draft.SelectedSteelMaterial = SteelMaterials.FirstOrDefault();
+        CreateProjectCommand.NotifyCanExecuteChanged();
+    }
+
+    private void OnDraftPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName is nameof(NewProjectDraft.ProjectName)
+            or nameof(NewProjectDraft.FolderPath)
+            or nameof(NewProjectDraft.ImportFile)
+            or nameof(NewProjectDraft.SelectedConcreteMaterial)
+            or nameof(NewProjectDraft.SelectedSteelMaterial))
+        {
+            CreateProjectCommand.NotifyCanExecuteChanged();
+        }
     }
 }

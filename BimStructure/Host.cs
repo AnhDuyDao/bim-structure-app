@@ -33,6 +33,7 @@ public static class Host
         services.AddSingleton<IMaterialService, MaterialService>();
         services.AddSingleton<IGridService, GridService>();
         services.AddSingleton<IProjectService, ProjectService>();
+        services.AddSingleton<INewProjectAppService, NewProjectAppService>();
         services.AddSingleton<IBaseStoryRepository, BaseStoryRepository>();
         services.AddSingleton<IStoryRepository, StoryRepository>();
         services.AddSingleton<IStoryService, StoryService>();

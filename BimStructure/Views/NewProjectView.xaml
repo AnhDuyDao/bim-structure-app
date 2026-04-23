@@ -20,18 +20,18 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Width="120">Tên dự án</TextBlock>
                     <TextBox Width="250"
-                             Text="{Binding ProjectName, UpdateSourceTrigger=PropertyChanged}"/>
+                             Text="{Binding Draft.ProjectName, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0 5">
                     <TextBlock Width="120">Đường dẫn</TextBlock>
-                    <TextBox Width="250" Text="{Binding FolderPath}" IsReadOnly="True"/>
+                    <TextBox Width="250" Text="{Binding Draft.FolderPath}" IsReadOnly="True"/>
                     <Button Content="..." Command="{Binding BrowseFolderCommand}"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Width="120">ETABS DB</TextBlock>
-                    <TextBox Width="250" Text="{Binding ImportFileName, Mode=OneWay}" IsReadOnly="True"/>
+                    <TextBox Width="250" Text="{Binding Draft.ImportFileName, Mode=OneWay}" IsReadOnly="True"/>
                     <Button Content="..." Command="{Binding BrowseFileCommand}"/>
                 </StackPanel>
 
@@ -42,10 +42,10 @@
         <GroupBox Header="Đơn vị" Grid.Row="1" Margin="0 0 0 10">
             <StackPanel Orientation="Horizontal" Margin="10">
                 <TextBlock Width="120">Chiều dài</TextBlock>
-                <TextBox Width="100" Text="{Binding LengthUnit}" IsReadOnly="True"/>
+                <TextBox Width="100" Text="{Binding Draft.LengthUnit}" IsReadOnly="True"/>
 
                 <TextBlock Width="120" Margin="20 0 0 0">Lực</TextBlock>
-                <TextBox Width="100" Text="{Binding ForceUnit}" IsReadOnly="True"/>
+                <TextBox Width="100" Text="{Binding Draft.ForceUnit}" IsReadOnly="True"/>
             </StackPanel>
         </GroupBox>
         <!-- GROUP 3 -->
@@ -56,7 +56,7 @@
                     <TextBlock Width="120">Bê tông</TextBlock>
                     <ComboBox Width="150"
                               ItemsSource="{Binding ConcreteMaterials}"
-                              SelectedItem="{Binding SelectedConcreteMaterial}"
+                              SelectedItem="{Binding Draft.SelectedConcreteMaterial}"
                               DisplayMemberPath="Name"/>
                 </StackPanel>
 
@@ -64,7 +64,7 @@
                     <TextBlock Width="120">Thép</TextBlock>
                     <ComboBox Width="150"
                               ItemsSource="{Binding SteelMaterials}"
-                              SelectedItem="{Binding SelectedSteelMaterial}"
+                              SelectedItem="{Binding Draft.SelectedSteelMaterial}"
                               DisplayMemberPath="Name"/>
                 </StackPanel>
             </StackPanel>
