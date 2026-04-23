@@ -8,8 +8,6 @@ public class Project
 
     public string DBFileName { get; set; } = string.Empty;
 
-    public DBModel? Model { get; set; }
-
     public SteelMaterial? Steel { get; set; }
 
     public ConcreteMaterial? Concrete { get; set; }
