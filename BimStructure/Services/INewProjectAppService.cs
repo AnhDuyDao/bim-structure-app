@@ -4,7 +4,11 @@ namespace BimStructure.Services;
 
 public interface INewProjectAppService
 {
-    DBUnitSet ReadUnits(string accessFilePath);
+    Task<DBUnitSet> ReadUnitsAsync(
+        string accessFilePath,
+        CancellationToken cancellationToken = default);
 
-    void CreateProject(CreateProjectRequest request);
+    Task CreateProjectAsync(
+        CreateProjectRequest request,
+        CancellationToken cancellationToken = default);
 }

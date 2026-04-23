@@ -4,5 +4,7 @@ namespace BimStructure.Services;
 
 public interface IUnitService
 {
-    DBUnitSet GetUnits(string databasePath);
+    Task<DBUnitSet> GetUnitsAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default);
 }

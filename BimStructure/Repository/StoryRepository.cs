@@ -1,21 +1,28 @@
 using BimStructure.Repository.Dtos;
 using BimStructure.Repository.Mappers;
+using Microsoft.Extensions.Logging;
 
 namespace BimStructure.Repository;
 
-public sealed class StoryRepository : IStoryRepository
+public sealed class StoryRepository : RepositoryBase, IStoryRepository
 {
-    private const string StoriesDefinitionsQuery = "SELECT [Name], [Height] FROM [Story Definitions]";
+    private const string Query = "SELECT [Name], [Height] FROM [Story Definitions]";
 
-    private readonly IAccessQueryExecutor _queryExecutor;
-
-    public StoryRepository(IAccessQueryExecutor queryExecutor)
+    public StoryRepository(
+        IAccessQueryExecutor queryExecutor,
+        ILogger<StoryRepository> logger)
+        : base(queryExecutor, logger)
     {
-        _queryExecutor = queryExecutor;
     }
 
-    public IReadOnlyList<StoryDefinitionDto> GetStories(string databasePath)
+    public Task<IReadOnlyList<StoryDefinitionDto>> GetStoriesAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default)
     {
-        return _queryExecutor.Query(databasePath, StoriesDefinitionsQuery, StoryDefinitionMapper.Map);
+        return ExecuteQueryAsync(
+            databasePath,
+            Query,
+            StoryDefinitionMapper.Map,
+            cancellationToken);
     }
 }

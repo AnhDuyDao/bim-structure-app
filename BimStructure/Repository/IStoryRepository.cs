@@ -4,5 +4,7 @@ namespace BimStructure.Repository;
 
 public interface IStoryRepository
 {
-    IReadOnlyList<StoryDefinitionDto> GetStories(string databasePath);
+    Task<IReadOnlyList<StoryDefinitionDto>> GetStoriesAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default);
 }

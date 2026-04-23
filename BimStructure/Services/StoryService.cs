@@ -1,5 +1,6 @@
 using BimStructure.Models;
 using BimStructure.Repository;
+using BimStructure.Repository.Dtos;
 
 namespace BimStructure.Services;
 
@@ -16,22 +17,31 @@ public sealed class StoryService : IStoryService
         _storyRepository = storyRepository;
     }
 
-    public List<DBStory> GetAllStories(string databasePath)
+    public async Task<IReadOnlyList<DBStory>> GetAllStoriesAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default)
     {
-        var baseStories = _baseStoryRepository.GetBaseStories(databasePath);
-        var stories = _storyRepository.GetStories(databasePath);
+        var baseTask = _baseStoryRepository.GetBaseStoriesAsync(databasePath, cancellationToken);
+        var storyTask = _storyRepository.GetStoriesAsync(databasePath, cancellationToken);
+
+        await Task.WhenAll(new Task[] { baseTask, storyTask });
+
+        var baseStories = await baseTask;
+        var stories = await storyTask;
 
         if (baseStories.Count == 0)
-        {
-            throw new InvalidOperationException("Khong tim thay base story.");
-        }
+            throw new InvalidOperationException("Not found base story.");
 
         if (stories.Count == 0)
-        {
-            throw new InvalidOperationException("Khong tim thay story definitions.");
-        }
+            throw new InvalidOperationException("Not found story definitions.");
 
-        var baseStory = baseStories.First();
+        return BuildStories(baseStories[0], stories);
+    }
+
+    private static IReadOnlyList<DBStory> BuildStories(
+        BaseStoryDto baseStory,
+        IReadOnlyList<StoryDefinitionDto> stories)
+    {
         var result = new DBStory[stories.Count];
         var currentElevation = baseStory.Elevation;
 

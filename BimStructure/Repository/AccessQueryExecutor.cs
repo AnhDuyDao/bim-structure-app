@@ -2,80 +2,109 @@ using System.Data;
 using System.Data.OleDb;
 using System.IO;
 using BimStructure.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace BimStructure.Repository;
 
 public sealed class AccessQueryExecutor : IAccessQueryExecutor
 {
     private readonly PluginConfiguration _configuration;
+    private readonly ILogger<AccessQueryExecutor> _logger;
 
-    public AccessQueryExecutor(PluginConfiguration configuration)
+    public AccessQueryExecutor(
+        PluginConfiguration configuration,
+        ILogger<AccessQueryExecutor> logger)
     {
         _configuration = configuration;
+        _logger = logger;
     }
 
-    public IReadOnlyList<T> Query<T>(
+    public async Task<IReadOnlyList<T>> QueryAsync<T>(
         string databasePath,
         string query,
-        Func<IDataRecord, T> map)
+        Func<IDataRecord, T> map,
+        IEnumerable<OleDbParameter>? parameters = null,
+        CancellationToken cancellationToken = default)
     {
         var results = new List<T>();
 
-        using var connection = new OleDbConnection(BuildConnectionString(databasePath));
-        using var command = new OleDbCommand(query, connection);
-
-        connection.Open();
-
-        using var reader = command.ExecuteReader();
-        if (reader is null)
+        try
         {
+            using var connection = new OleDbConnection(BuildConnectionString(databasePath));
+            using var command = CreateCommand(connection, query, parameters);
+
+            await connection.OpenAsync(cancellationToken);
+
+            _logger.LogDebug("Executing query: {Query}", query);
+
+            using var reader = await command.ExecuteReaderAsync(cancellationToken);
+
+            if (reader is null)
+                return results;
+
+            while (await reader.ReadAsync(cancellationToken))
+            {
+                results.Add(map(reader));
+            }
+
+            _logger.LogInformation("Query returned {Count} rows", results.Count);
+
             return results;
         }
-
-        while (reader.Read())
+        catch (Exception ex)
         {
-            results.Add(map(reader));
+            _logger.LogError(ex, "Error executing query: {Query}", query);
+            throw;
         }
-
-        return results;
     }
 
-    public T? QuerySingleOrDefault<T>(
+    public async Task<T?> QuerySingleOrDefaultAsync<T>(
         string databasePath,
         string query,
-        Func<IDataRecord, T> map)
+        Func<IDataRecord, T> map,
+        IEnumerable<OleDbParameter>? parameters = null,
+        CancellationToken cancellationToken = default)
     {
-        using var connection = new OleDbConnection(BuildConnectionString(databasePath));
-        using var command = new OleDbCommand(query, connection);
+        var results = await QueryAsync(
+            databasePath,
+            query,
+            map,
+            parameters,
+            cancellationToken);
 
-        connection.Open();
-
-        using var reader = command.ExecuteReader();
-        if (reader is null || !reader.Read())
+        return results.Count switch
         {
-            return default;
+            0 => default,
+            1 => results[0],
+            _ => throw new InvalidOperationException("Query returned more than one result.")
+        };
+    }
+
+    private OleDbCommand CreateCommand(
+        OleDbConnection connection,
+        string query,
+        IEnumerable<OleDbParameter>? parameters)
+    {
+        var command = new OleDbCommand(query, connection);
+
+        if (parameters != null)
+        {
+            foreach (var param in parameters)
+            {
+                command.Parameters.Add(param);
+            }
         }
 
-        var result = map(reader);
-        if (reader.Read())
-        {
-            throw new InvalidOperationException("Query return more than once.");
-        }
-
-        return result;
+        return command;
     }
 
     private string BuildConnectionString(string databasePath)
     {
         if (string.IsNullOrWhiteSpace(databasePath))
-        {
             throw new ArgumentException("Database path is required.", nameof(databasePath));
-        }
 
         if (!File.Exists(databasePath))
-        {
             throw new FileNotFoundException("Access database file was not found.", databasePath);
-        }
 
         return string.Format(
             _configuration.AccessConnectionStringTemplate,

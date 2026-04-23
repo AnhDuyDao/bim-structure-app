@@ -1,21 +1,28 @@
 ﻿using BimStructure.Repository.Dtos;
 using BimStructure.Repository.Mappers;
+using Microsoft.Extensions.Logging;
 
 namespace BimStructure.Repository;
 
-public class SectionRepository : ISectionRepository
+public class SectionRepository : RepositoryBase, ISectionRepository
 {
-    private const string SectionsQuery = "SELECT [Name], [Depth], [Width] FROM [Frame Section Property Definitions - Concrete Rectangular]";
+    private const string Query = "SELECT [Name], [Depth], [Width] FROM [Frame Section Property Definitions - Concrete Rectangular]";
 
-    private readonly IAccessQueryExecutor _queryExecutor;
-
-    public SectionRepository(IAccessQueryExecutor queryExecutor)
+    public SectionRepository(
+        IAccessQueryExecutor queryExecutor,
+        ILogger<SectionRepository> logger)
+        : base(queryExecutor, logger)
     {
-        _queryExecutor = queryExecutor;
     }
-    
-    public IReadOnlyList<SectionDto> GetSections(string databasePath)
+
+    public Task<IReadOnlyList<SectionDto>> GetSectionsAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default)
     {
-        return _queryExecutor.Query(databasePath, SectionsQuery, SectionMapper.Map);
+        return ExecuteQueryAsync(
+            databasePath,
+            Query,
+            SectionMapper.Map,
+            cancellationToken);
     }
 }

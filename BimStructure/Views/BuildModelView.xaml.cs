@@ -8,5 +8,9 @@ public sealed partial class BuildModelView
     {
         InitializeComponent();
         DataContext = viewModel;
+        Loaded += async (_, _) =>
+        {
+            await viewModel.LoadAsync();
+        };
     }
 }

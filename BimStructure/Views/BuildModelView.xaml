@@ -116,11 +116,21 @@
 
             <GroupBox Grid.Column="2" Header="Thông tin phần tử cột" Padding="8">
                 <DataGrid
-                    x:Name="DgvColumnDetail"
-                    AutoGenerateColumns="True"
+                    ItemsSource="{Binding GridDetailsColumn}"
+                    AutoGenerateColumns="False"
+                    ColumnWidth="*"
                     CanUserAddRows="False"
                     CanUserDeleteRows="False"
-                    HeadersVisibility="All" />
+                    CanUserSortColumns="False"
+                    HeadersVisibility="All">
+
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Tầng" Binding="{Binding Story.Name}" />
+                        <DataGridTextColumn Header="Tên phần tử" Binding="{Binding Height}" />
+                        <DataGridTextColumn Header="Tiết diện (bxh)" Binding="{Binding Section.Elevation}" />
+                        <DataGridTextColumn Header="Chiều dài (m)" Binding="{Binding Length}" />
+                    </DataGrid.Columns>
+                </DataGrid>
             </GroupBox>
         </Grid>
 

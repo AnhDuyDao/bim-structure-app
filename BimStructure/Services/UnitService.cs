@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using BimStructure.Models;
 using BimStructure.Repository;
 
@@ -14,22 +12,34 @@ public sealed class UnitService : IUnitService
         _unitRepository = unitRepository;
     }
 
-    public DBUnitSet GetUnits(string databasePath)
+    public async Task<DBUnitSet> GetUnitsAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default)
     {
-        var programControl = _unitRepository.GetProgramControl(databasePath);
+        if (string.IsNullOrWhiteSpace(databasePath))
+            throw new ArgumentException("Database path is required.", nameof(databasePath));
+
+        var programControl = await _unitRepository.GetProgramControlAsync(
+            databasePath,
+            cancellationToken);
+
         return ParseUnits(programControl.CurrentUnits);
     }
 
     private static DBUnitSet ParseUnits(string currUnits)
     {
+        if (string.IsNullOrWhiteSpace(currUnits))
+            throw new InvalidOperationException("CurrUnits is empty.");
+
         var parts = currUnits
-            .Split(',')
+            .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
             .Select(x => x.Trim())
             .ToArray();
 
         if (parts.Length < 2)
         {
-            throw new InvalidOperationException($"Gia tri CurrUnits khong hop le: '{currUnits}'.");
+            throw new InvalidOperationException(
+                $"Gia tri CurrUnits khong hop le: '{currUnits}'.");
         }
 
         var forceUnit = ParseForceUnit(parts[0]);
@@ -52,7 +62,8 @@ public sealed class UnitService : IUnitService
             "kN" => UnitType.KILONEWTON,
             "kgF" => UnitType.KILOGRAM_FORCE,
             "Ton" or "TonF" => UnitType.TON_FORCE,
-            _ => throw new NotSupportedException($"Chua ho tro don vi luc '{value}'.")
+            _ => throw new NotSupportedException(
+                $"Chua ho tro don vi luc '{value}'.")
         };
     }
 
@@ -63,7 +74,8 @@ public sealed class UnitService : IUnitService
             "mm" => UnitType.MILLIMETER,
             "cm" => UnitType.CENTIMETER,
             "m" => UnitType.METER,
-            _ => throw new NotSupportedException($"Chua ho tro don vi chieu dai '{value}'.")
+            _ => throw new NotSupportedException(
+                $"Chua ho tro don vi chieu dai '{value}'.")
         };
     }
 

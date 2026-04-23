@@ -4,39 +4,55 @@ using BimStructure.Services;
 
 namespace BimStructure.ViewModels;
 
-public sealed class BuildModelViewModel : ObservableObject
+public sealed partial class BuildModelViewModel : ObservableObject
 {
     private readonly IGridService _gridService;
     private readonly IProjectService _projectService;
     private readonly IStoryService _storyService;
-    
-    public ObservableCollection<DBGrid> GridX { get; set; } = new();
-    public ObservableCollection<DBGrid> GridY { get; set; } = new();
 
-    public ObservableCollection<DBStory> GridHeight { get; set; } = new();
+    public ObservableCollection<DBGrid> GridX { get; } = new();
+    public ObservableCollection<DBGrid> GridY { get; } = new();
+    public ObservableCollection<DBStory> GridHeight { get; } = new();
 
-    public BuildModelViewModel(IGridService gridService, IProjectService projectService, IStoryService storyService)
+    public BuildModelViewModel(
+        IGridService gridService,
+        IProjectService projectService,
+        IStoryService storyService)
     {
         _gridService = gridService;
         _projectService = projectService;
         _storyService = storyService;
-        LoadGrids();
     }
-    
-    public void LoadGrids()
+
+    [RelayCommand]
+    public async Task LoadAsync()
     {
         var project = _projectService.CurrentProject;
 
         if (project == null)
             return;
 
-        var databasePath = project.DBFileName; // hoặc xử lý thêm nếu cần
-        var grids = _gridService.GetGrids(databasePath);
-        var stories = _storyService.GetAllStories(databasePath);
+        var databasePath = project.DBFileName;
 
+        try
+        {
+            var grids = await _gridService.GetGridsAsync(databasePath);
+            var stories = await _storyService.GetAllStoriesAsync(databasePath);
+
+            UpdateGrids(grids);
+            UpdateStories(stories);
+        }
+        catch (Exception ex)
+        {
+            // TODO: inject ILogger hoặc IMessageService
+            Console.WriteLine(ex);
+        }
+    }
+
+    private void UpdateGrids(IReadOnlyDictionary<string, DBGrid> grids)
+    {
         GridX.Clear();
         GridY.Clear();
-        GridHeight.Clear();
 
         foreach (var grid in grids.Values)
         {
@@ -45,6 +61,11 @@ public sealed class BuildModelViewModel : ObservableObject
             else
                 GridY.Add(grid);
         }
+    }
+
+    private void UpdateStories(IReadOnlyList<DBStory> stories)
+    {
+        GridHeight.Clear();
 
         foreach (var story in stories)
         {

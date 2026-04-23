@@ -1,20 +1,29 @@
 ﻿using BimStructure.Repository.Dtos;
 using BimStructure.Repository.Mappers;
+using Microsoft.Extensions.Logging;
 
 namespace BimStructure.Repository;
 
-public class BeamBaysRepository : IBeamBaysRepository
+public sealed class BeamBaysRepository : RepositoryBase, IBeamBaysRepository
 {
-    private const string BeamBaysQuery = "SELECT [Label], [PointBayI], [PointBayJ] FROM [Beam Bays]";
+    private const string Query =
+        "SELECT [Label], [PointBayI], [PointBayJ] FROM [Beam Bays]";
 
-    private readonly IAccessQueryExecutor _queryExecutor;
-
-    public BeamBaysRepository(IAccessQueryExecutor queryExecutor)
+    public BeamBaysRepository(
+        IAccessQueryExecutor queryExecutor,
+        ILogger<BeamBaysRepository> logger)
+        : base(queryExecutor, logger)
     {
-        _queryExecutor = queryExecutor;
     }
-    public IReadOnlyList<MemberBayDto> GetBeamBays(string databasePath)
+
+    public Task<IReadOnlyList<MemberBayDto>> GetBeamBaysAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default)
     {
-        return _queryExecutor.Query(databasePath, BeamBaysQuery, MemberBayMapper.Map);
+        return ExecuteQueryAsync(
+            databasePath,
+            Query,
+            MemberBayMapper.Map,
+            cancellationToken);
     }
 }

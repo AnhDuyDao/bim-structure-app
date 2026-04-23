@@ -1,7 +1,5 @@
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using BimStructure.Models;
@@ -15,6 +13,7 @@ public sealed partial class NewProjectViewModel : ObservableObject
     private readonly IDialogService _dialogService;
     private readonly IMaterialService _materialService;
     private readonly INewProjectAppService _newProjectAppService;
+
     private readonly NewProjectDraft _draft = new();
     private DBUnitSet? _importedUnits;
 
@@ -28,8 +27,6 @@ public sealed partial class NewProjectViewModel : ObservableObject
         _newProjectAppService = newProjectAppService;
 
         _draft.PropertyChanged += OnDraftPropertyChanged;
-
-        LoadMaterial();
     }
 
     public event Action<bool?>? RequestClose;
@@ -55,49 +52,53 @@ public sealed partial class NewProjectViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void BrowseFile()
+    private async Task BrowseFileAsync()
     {
         var selectedPath = _dialogService.PickAccessDatabaseFile();
         if (string.IsNullOrWhiteSpace(selectedPath))
-        {
             return;
-        }
 
         try
         {
-            var units = _newProjectAppService.ReadUnits(selectedPath!);
+            var units = await _newProjectAppService.ReadUnitsAsync(selectedPath!);
 
             _importedUnits = units;
             Draft.ImportFile = selectedPath!;
             Draft.LengthUnit = UnitUtils.ToDisplayString(units.LengthUnit);
             Draft.ForceUnit = UnitUtils.ToDisplayString(units.ForceUnit);
         }
-        catch (Exception exception)
+        catch (Exception ex)
         {
-            _importedUnits = null;
-            Draft.ImportFile = string.Empty;
-            Draft.LengthUnit = string.Empty;
-            Draft.ForceUnit = string.Empty;
+            ResetImportState();
 
-            _dialogService.ShowError("BimStructure", $"Khong the doc file Access.{Environment.NewLine}{exception.Message}");
+            _dialogService.ShowError(
+                "BimStructure",
+                $"Can not read file Access.{Environment.NewLine}{ex.Message}");
         }
 
         CreateProjectCommand.NotifyCanExecuteChanged();
     }
 
     [RelayCommand(CanExecute = nameof(CanCreateProject))]
-    private void CreateProject()
+    private async Task CreateProjectAsync()
     {
-        _newProjectAppService.CreateProject(new CreateProjectRequest
+        try
         {
-            ProjectName = Draft.ProjectName,
-            FolderPath = Draft.FolderPath,
-            ImportFile = Draft.ImportFile,
-            Concrete = Draft.SelectedConcreteMaterial,
-            Steel = Draft.SelectedSteelMaterial
-        });
+            await _newProjectAppService.CreateProjectAsync(new CreateProjectRequest
+            {
+                ProjectName = Draft.ProjectName,
+                FolderPath = Draft.FolderPath,
+                ImportFile = Draft.ImportFile,
+                Concrete = Draft.SelectedConcreteMaterial,
+                Steel = Draft.SelectedSteelMaterial
+            });
 
-        RequestClose?.Invoke(true);
+            RequestClose?.Invoke(true);
+        }
+        catch (Exception ex)
+        {
+            _dialogService.ShowError("BimStructure", ex.Message);
+        }
     }
 
     [RelayCommand]
@@ -106,23 +107,38 @@ public sealed partial class NewProjectViewModel : ObservableObject
         RequestClose?.Invoke(false);
     }
 
+    [RelayCommand]
+    private void LoadAsync()
+    {
+        LoadMaterial();
+    }
+
     private void LoadMaterial()
     {
         ConcreteMaterials.Clear();
-        foreach (var concreteMaterial in _materialService.GetConcreteMaterials())
+        foreach (var item in _materialService.GetConcreteMaterials())
         {
-            ConcreteMaterials.Add(concreteMaterial);
+            ConcreteMaterials.Add(item);
         }
 
         SteelMaterials.Clear();
-        foreach (var steelMaterial in _materialService.GetSteelMaterials())
+        foreach (var item in _materialService.GetSteelMaterials())
         {
-            SteelMaterials.Add(steelMaterial);
+            SteelMaterials.Add(item);
         }
 
         Draft.SelectedConcreteMaterial = ConcreteMaterials.FirstOrDefault();
         Draft.SelectedSteelMaterial = SteelMaterials.FirstOrDefault();
+
         CreateProjectCommand.NotifyCanExecuteChanged();
+    }
+
+    private void ResetImportState()
+    {
+        _importedUnits = null;
+        Draft.ImportFile = string.Empty;
+        Draft.LengthUnit = string.Empty;
+        Draft.ForceUnit = string.Empty;
     }
 
     private void OnDraftPropertyChanged(object? sender, PropertyChangedEventArgs e)

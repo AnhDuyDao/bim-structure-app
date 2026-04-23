@@ -1,4 +1,3 @@
-using System;
 using BimStructure.ViewModels;
 
 namespace BimStructure.Views;
@@ -7,10 +6,17 @@ public sealed partial class NewProjectView
 {
     public NewProjectView(NewProjectViewModel viewModel)
     {
-        DataContext = viewModel;
-        viewModel.RequestClose += OnRequestClose;
         InitializeComponent();
+        DataContext = viewModel;
+        
+        viewModel.RequestClose += OnRequestClose;
         Closed += OnClosed;
+        
+        Loaded += (_, _) =>
+        {
+            if (viewModel.LoadAsyncCommand.CanExecute(null))
+                viewModel.LoadAsyncCommand.Execute(null);
+        };
     }
 
     private void OnRequestClose(bool? dialogResult)

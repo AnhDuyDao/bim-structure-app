@@ -5,5 +5,7 @@ namespace BimStructure.Repository;
 
 public interface IPointBaysRepository
 {
-    IReadOnlyList<PointBayDto> GetPointBays(string databasePath);
+    Task<IReadOnlyList<PointBayDto>> GetPointBaysAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default);
 }

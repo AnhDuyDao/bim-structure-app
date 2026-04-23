@@ -4,5 +4,7 @@ namespace BimStructure.Repository;
 
 public interface IBeamBaysRepository
 {
-    IReadOnlyList<MemberBayDto> GetBeamBays(string databasePath);
+    Task<IReadOnlyList<MemberBayDto>> GetBeamBaysAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default);
 }

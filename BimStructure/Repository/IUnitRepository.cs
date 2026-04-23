@@ -4,5 +4,7 @@ namespace BimStructure.Repository;
 
 public interface IUnitRepository
 {
-    ProgramControlDto GetProgramControl(string databasePath);
+    Task<ProgramControlDto> GetProgramControlAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default);
 }

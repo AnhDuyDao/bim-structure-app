@@ -4,5 +4,7 @@ namespace BimStructure.Repository;
 
 public interface IGridRepository
 {
-    IReadOnlyList<GridLineDto> GetGridLines(string databasePath);
+    Task<IReadOnlyList<GridLineDto>> GetGridLinesAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default);
 }

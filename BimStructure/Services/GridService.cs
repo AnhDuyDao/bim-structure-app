@@ -1,5 +1,6 @@
 using BimStructure.Models;
 using BimStructure.Repository;
+using BimStructure.Repository.Dtos;
 
 namespace BimStructure.Services;
 
@@ -12,18 +13,28 @@ public sealed class GridService : IGridService
         _gridRepository = gridRepository;
     }
 
-    public Dictionary<string, DBGrid> GetGrids(string databasePath)
+    public async Task<IReadOnlyDictionary<string, DBGrid>> GetGridsAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default)
     {
-        var gridLines = _gridRepository.GetGridLines(databasePath);
+        var gridLines = await _gridRepository.GetGridLinesAsync(
+            databasePath,
+            cancellationToken);
+
         return gridLines.ToDictionary(
             line => line.Id,
-            line => new DBGrid
-            {
-                Name = line.Id,
-                Direction = line.GridLineType == "X (Cartesian)"
-                    ? GridDirection.X
-                    : GridDirection.Y,
-                Coordinate = line.Ordinate
-            });
+            MapToDomain);
+    }
+
+    private static DBGrid MapToDomain(GridLineDto line)
+    {
+        return new DBGrid
+        {
+            Name = line.Id,
+            Direction = line.GridLineType == "X (Cartesian)"
+                ? GridDirection.X
+                : GridDirection.Y,
+            Coordinate = line.Ordinate
+        };
     }
 }

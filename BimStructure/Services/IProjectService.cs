@@ -5,5 +5,8 @@ namespace BimStructure.Services;
 public interface IProjectService
 {
     Project? CurrentProject { get; }
-    void CreateProject(Project project);
+
+    Task CreateProjectAsync(
+        Project project,
+        CancellationToken cancellationToken = default);
 }

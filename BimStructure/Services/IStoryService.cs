@@ -4,5 +4,7 @@ namespace BimStructure.Services;
 
 public interface IStoryService
 {
-    List<DBStory> GetAllStories(string databasePath);
+    Task<IReadOnlyList<DBStory>> GetAllStoriesAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default);
 }

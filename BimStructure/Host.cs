@@ -4,7 +4,7 @@ using BimStructure.Repository;
 using BimStructure.Services;
 using BimStructure.Views;
 using BimStructure.ViewModels;
-
+using Microsoft.Extensions.Logging;
 namespace BimStructure;
 
 /// <summary>
@@ -21,6 +21,12 @@ public static class Host
     {
         var services = new ServiceCollection();
         var pluginConfiguration = PluginConfiguration.Load();
+        
+        services.AddLogging(builder =>
+        {
+            builder.AddDebug();
+            builder.SetMinimumLevel(LogLevel.Debug);
+        });
 
         // Services
         services.AddSingleton(pluginConfiguration);
@@ -43,7 +49,6 @@ public static class Host
         services.AddSingleton<ISectionRepository, SectionRepository>();
 
         //MVVM
-        services.AddTransient<BimStructureViewModel>();
         services.AddTransient<NewProjectViewModel>();
         services.AddTransient<NewProjectView>();
         services.AddTransient<BuildModelViewModel>();

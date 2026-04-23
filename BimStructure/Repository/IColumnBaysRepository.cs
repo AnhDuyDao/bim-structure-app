@@ -4,5 +4,7 @@ namespace BimStructure.Repository;
 
 public interface IColumnBaysRepository
 {
-    IReadOnlyList<MemberBayDto> GetColumnBays(string databasePath);
+    Task<IReadOnlyList<MemberBayDto>> GetColumnBaysAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default);
 }

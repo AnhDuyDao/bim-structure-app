@@ -1,22 +1,29 @@
 using BimStructure.Repository.Dtos;
 using BimStructure.Repository.Mappers;
+using Microsoft.Extensions.Logging;
 
 namespace BimStructure.Repository;
 
-public sealed class GridRepository : IGridRepository
+public sealed class GridRepository : RepositoryBase, IGridRepository
 {
-    private const string GridDefinitionsQuery =
+    private const string Query =
         "SELECT [ID], [Grid Line Type], [Ordinate] FROM [Grid Definitions - Grid Lines]";
 
-    private readonly IAccessQueryExecutor _queryExecutor;
-
-    public GridRepository(IAccessQueryExecutor queryExecutor)
+    public GridRepository(
+        IAccessQueryExecutor queryExecutor,
+        ILogger<GridRepository> logger)
+        : base(queryExecutor, logger)
     {
-        _queryExecutor = queryExecutor;
     }
 
-    public IReadOnlyList<GridLineDto> GetGridLines(string databasePath)
+    public Task<IReadOnlyList<GridLineDto>> GetGridLinesAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default)
     {
-        return _queryExecutor.Query(databasePath, GridDefinitionsQuery, GridLineMapper.Map);
+        return ExecuteQueryAsync(
+            databasePath,
+            Query,
+            GridLineMapper.Map,
+            cancellationToken);
     }
 }

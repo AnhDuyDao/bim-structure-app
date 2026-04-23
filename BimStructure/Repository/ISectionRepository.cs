@@ -4,5 +4,7 @@ namespace BimStructure.Repository;
 
 public interface ISectionRepository
 {
-    IReadOnlyList<SectionDto> GetSections(string databasePath);
+    Task<IReadOnlyList<SectionDto>> GetSectionsAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default);
 }

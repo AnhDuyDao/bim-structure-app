@@ -1,4 +1,3 @@
-using System;
 using BimStructure.Models;
 
 namespace BimStructure.Services;
@@ -16,27 +15,21 @@ public sealed class NewProjectAppService : INewProjectAppService
         _projectService = projectService;
     }
 
-    public DBUnitSet ReadUnits(string accessFilePath)
+    public async Task<DBUnitSet> ReadUnitsAsync(
+        string accessFilePath,
+        CancellationToken cancellationToken = default)
     {
-        return _unitService.GetUnits(accessFilePath);
+        if (string.IsNullOrWhiteSpace(accessFilePath))
+            throw new ArgumentException("Access file path is required.", nameof(accessFilePath));
+
+        return await _unitService.GetUnitsAsync(accessFilePath, cancellationToken);
     }
 
-    public void CreateProject(CreateProjectRequest request)
+    public async Task CreateProjectAsync(
+        CreateProjectRequest request,
+        CancellationToken cancellationToken = default)
     {
-        if (string.IsNullOrWhiteSpace(request.ProjectName))
-        {
-            throw new ArgumentException("Project name is required.", nameof(request));
-        }
-
-        if (string.IsNullOrWhiteSpace(request.FolderPath))
-        {
-            throw new ArgumentException("Folder path is required.", nameof(request));
-        }
-
-        if (string.IsNullOrWhiteSpace(request.ImportFile))
-        {
-            throw new ArgumentException("Import file is required.", nameof(request));
-        }
+        ValidateRequest(request);
 
         var project = new Project
         {
@@ -47,6 +40,21 @@ public sealed class NewProjectAppService : INewProjectAppService
             Steel = request.Steel
         };
 
-        _projectService.CreateProject(project);
+        await _projectService.CreateProjectAsync(project, cancellationToken);
+    }
+
+    private static void ValidateRequest(CreateProjectRequest request)
+    {
+        if (request is null)
+            throw new ArgumentNullException(nameof(request));
+
+        if (string.IsNullOrWhiteSpace(request.ProjectName))
+            throw new ArgumentException("Project name is required.", nameof(request.ProjectName));
+
+        if (string.IsNullOrWhiteSpace(request.FolderPath))
+            throw new ArgumentException("Folder path is required.", nameof(request.FolderPath));
+
+        if (string.IsNullOrWhiteSpace(request.ImportFile))
+            throw new ArgumentException("Import file is required.", nameof(request.ImportFile));
     }
 }

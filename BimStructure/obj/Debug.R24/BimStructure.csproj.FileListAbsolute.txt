@@ -31,3 +31,10 @@ D:\BimStructure\BimStructure\obj\Debug.R24\Views\NewProjectView.baml
 D:\BimStructure\BimStructure\obj\Debug.R24\Views\NewProjectView.g.cs
 D:\BimStructure\BimStructure\obj\Debug.R24\Views\BuildModelView.baml
 D:\BimStructure\BimStructure\obj\Debug.R24\Views\BuildModelView.g.cs
+D:\BimStructure\BimStructure\bin\Debug.R24\Microsoft.Extensions.Logging.dll
+D:\BimStructure\BimStructure\bin\Debug.R24\Microsoft.Extensions.Logging.Abstractions.dll
+D:\BimStructure\BimStructure\bin\Debug.R24\Microsoft.Extensions.Logging.Debug.dll
+D:\BimStructure\BimStructure\bin\Debug.R24\Microsoft.Extensions.Options.dll
+D:\BimStructure\BimStructure\bin\Debug.R24\Microsoft.Extensions.Primitives.dll
+D:\BimStructure\BimStructure\bin\Debug.R24\System.Diagnostics.DiagnosticSource.dll
+D:\BimStructure\BimStructure\bin\Debug.R24\System.ValueTuple.dll

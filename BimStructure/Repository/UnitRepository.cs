@@ -1,22 +1,29 @@
 using BimStructure.Repository.Dtos;
 using BimStructure.Repository.Mappers;
+using Microsoft.Extensions.Logging;
 
 namespace BimStructure.Repository;
 
-public sealed class UnitRepository : IUnitRepository
+public sealed class UnitRepository : RepositoryBase, IUnitRepository
 {
-    private const string ProgramControlQuery = "SELECT [CurrUnits] FROM [Program Control]";
+    private const string Query =
+        "SELECT [CurrUnits] FROM [Program Control]";
 
-    private readonly IAccessQueryExecutor _queryExecutor;
-
-    public UnitRepository(IAccessQueryExecutor queryExecutor)
+    public UnitRepository(
+        IAccessQueryExecutor queryExecutor,
+        ILogger<UnitRepository> logger)
+        : base(queryExecutor, logger)
     {
-        _queryExecutor = queryExecutor;
     }
 
-    public ProgramControlDto GetProgramControl(string databasePath)
+    public Task<ProgramControlDto> GetProgramControlAsync(
+        string databasePath,
+        CancellationToken cancellationToken = default)
     {
-        return _queryExecutor.QuerySingleOrDefault(databasePath, ProgramControlQuery, ProgramControlMapper.Map)
-            ?? throw new InvalidOperationException("Not found value in [Program Control].");
+        return ExecuteSingleAsync(
+            databasePath,
+            Query,
+            ProgramControlMapper.Map,
+            cancellationToken);
     }
 }
