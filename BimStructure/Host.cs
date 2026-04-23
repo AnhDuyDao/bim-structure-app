@@ -40,6 +40,7 @@ public static class Host
         services.AddSingleton<IPointBaysRepository, PointBaysRepository>();
         services.AddSingleton<IColumnBaysRepository, ColumnBaysRepository>();
         services.AddSingleton<IBeamBaysRepository, BeamBaysRepository>();
+        services.AddSingleton<ISectionRepository, SectionRepository>();
 
         //MVVM
         services.AddTransient<BimStructureViewModel>();
