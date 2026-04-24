@@ -49,6 +49,7 @@ public static class Host
         services.AddSingleton<ISectionRepository, SectionRepository>();
         services.AddSingleton<IFrameRepository, FrameRepository>();
         services.AddSingleton<IFrameService, FrameService>();
+        services.AddSingleton<IProjectDirectoryService, ProjectDirectoryService>();
 
         //MVVM
         services.AddTransient<NewProjectViewModel>();

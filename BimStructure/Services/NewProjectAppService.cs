@@ -6,13 +6,15 @@ public sealed class NewProjectAppService : INewProjectAppService
 {
     private readonly IUnitService _unitService;
     private readonly IProjectService _projectService;
+    private readonly IProjectDirectoryService _projectDirectoryService;
 
     public NewProjectAppService(
         IUnitService unitService,
-        IProjectService projectService)
+        IProjectService projectService, IProjectDirectoryService projectDirectoryService)
     {
         _unitService = unitService;
         _projectService = projectService;
+        _projectDirectoryService = projectDirectoryService;
     }
 
     public async Task<DBUnitSet> ReadUnitsAsync(
@@ -30,11 +32,15 @@ public sealed class NewProjectAppService : INewProjectAppService
         CancellationToken cancellationToken = default)
     {
         ValidateRequest(request);
+        
+        var projectRoot = _projectDirectoryService.CreateProjectStructure(
+            request.FolderPath,
+            request.ProjectName);
 
         var project = new Project
         {
             Name = request.ProjectName,
-            RootPath = request.FolderPath,
+            RootPath = projectRoot,
             DBFileName = request.ImportFile,
             Concrete = request.Concrete,
             Steel = request.Steel
