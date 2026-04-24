@@ -35,8 +35,9 @@ public sealed class NewProjectAppService : INewProjectAppService
         
         var projectRoot = _projectDirectoryService.CreateProjectStructure(
             request.FolderPath,
-            request.ProjectName);
-
+            request.ProjectName,
+            request.ImportFile);
+        
         var project = new Project
         {
             Name = request.ProjectName,

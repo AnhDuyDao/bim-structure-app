@@ -50,6 +50,7 @@ public static class Host
         services.AddSingleton<IFrameRepository, FrameRepository>();
         services.AddSingleton<IFrameService, FrameService>();
         services.AddSingleton<IProjectDirectoryService, ProjectDirectoryService>();
+        services.AddSingleton<IEtabsFileService, EtabsFileService>();
 
         //MVVM
         services.AddTransient<NewProjectViewModel>();

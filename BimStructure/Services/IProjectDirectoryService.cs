@@ -2,5 +2,5 @@
 
 public interface IProjectDirectoryService
 {
-    string CreateProjectStructure(string basePath, string projectName);
+    string CreateProjectStructure(string basePath, string projectName, string etabsSourceFile);
 }
