@@ -30,8 +30,8 @@ public class Application : ExternalApplication
         // panelDuAn.AddPushButton<HelloCommand>("Mở dự án")
         //     .SetLargeImage("/BimStructure;component/Resources/Icons/icons8-project-manager-16.png");
         //
-        // panelDuAn.AddPushButton<LuuDuAnCommand>("Lưu dự án")
-        //     .SetLargeImage("/BimStructure;component/Resources/Icons/icons8-bookmark-16.png");
+        panelDuAn.AddPushButton<SaveProjectCommand>("Lưu dự án")
+            .SetLargeImage("/BimStructure;component/Resources/Icons/icons8-bookmark-16.png");
         
         // var panelTinhToan = Application.CreateRibbonPanel("BimStructure","Tính toán");
         //

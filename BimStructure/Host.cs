@@ -52,6 +52,7 @@ public static class Host
         services.AddSingleton<IProjectDirectoryService, ProjectDirectoryService>();
         services.AddSingleton<IEtabsFileService, EtabsFileService>();
         services.AddSingleton<IProjectPersistenceService, ProjectPersistenceService>();
+        services.AddSingleton<IRevitDocumentService, RevitDocumentService>();
 
         //MVVM
         services.AddTransient<NewProjectViewModel>();
