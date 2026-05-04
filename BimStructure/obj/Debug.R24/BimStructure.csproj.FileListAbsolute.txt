@@ -38,3 +38,4 @@ D:\BimStructure\BimStructure\bin\Debug.R24\Microsoft.Extensions.Options.dll
 D:\BimStructure\BimStructure\bin\Debug.R24\Microsoft.Extensions.Primitives.dll
 D:\BimStructure\BimStructure\bin\Debug.R24\System.Diagnostics.DiagnosticSource.dll
 D:\BimStructure\BimStructure\bin\Debug.R24\System.ValueTuple.dll
+D:\BimStructure\BimStructure\bin\Debug.R24\Newtonsoft.Json.dll

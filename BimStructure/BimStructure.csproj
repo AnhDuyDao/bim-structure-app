@@ -24,6 +24,7 @@
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2"/>
         <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="6.0.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 
         <!-- Dialogs -->
         <PackageReference Include="WindowsAPICodePack.Shell.CommonFileDialogs" Version="1.1.5"/>

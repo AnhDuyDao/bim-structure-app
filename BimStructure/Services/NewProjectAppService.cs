@@ -1,4 +1,6 @@
+using System.IO;
 using BimStructure.Models;
+using Microsoft.Extensions.Logging;
 
 namespace BimStructure.Services;
 
@@ -7,14 +9,18 @@ public sealed class NewProjectAppService : INewProjectAppService
     private readonly IUnitService _unitService;
     private readonly IProjectService _projectService;
     private readonly IProjectDirectoryService _projectDirectoryService;
+    private readonly IProjectPersistenceService _projectPersistenceService;
+    private readonly ILogger<ProjectPersistenceService> _logger;
 
     public NewProjectAppService(
         IUnitService unitService,
-        IProjectService projectService, IProjectDirectoryService projectDirectoryService)
+        IProjectService projectService, IProjectDirectoryService projectDirectoryService, IProjectPersistenceService projectPersistenceService, ILogger<ProjectPersistenceService> logger)
     {
         _unitService = unitService;
         _projectService = projectService;
         _projectDirectoryService = projectDirectoryService;
+        _projectPersistenceService = projectPersistenceService;
+        _logger = logger;
     }
 
     public async Task<DBUnitSet> ReadUnitsAsync(
@@ -33,21 +39,50 @@ public sealed class NewProjectAppService : INewProjectAppService
     {
         ValidateRequest(request);
         
-        var projectRoot = _projectDirectoryService.CreateProjectStructure(
-            request.FolderPath,
-            request.ProjectName,
-            request.ImportFile);
-        
-        var project = new Project
-        {
-            Name = request.ProjectName,
-            RootPath = projectRoot,
-            DBFileName = request.ImportFile,
-            Concrete = request.Concrete,
-            Steel = request.Steel
-        };
+        string? projectRoot = null;
 
-        await _projectService.CreateProjectAsync(project, cancellationToken);
+        try
+        {
+            // 1. Create folder structure
+            projectRoot = _projectDirectoryService.CreateProjectStructure(
+                request.FolderPath,
+                request.ProjectName,
+                request.ImportFile);
+
+            // 2. Create domain object
+            var project = new Project
+            {
+                Name = request.ProjectName,
+                RootPath = projectRoot,
+                DBFileName = request.ImportFile,
+                Concrete = request.Concrete,
+                Steel = request.Steel
+            };
+
+            // 3. Save project.json
+            _projectPersistenceService.Save(project);
+
+            // 4. Set current project
+            await _projectService.CreateProjectAsync(project, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            // 🔥 ROLLBACK
+            if (!string.IsNullOrWhiteSpace(projectRoot) && Directory.Exists(projectRoot))
+            {
+                try
+                {
+                    Directory.Delete(projectRoot, recursive: true);
+                }
+                catch
+                {
+                    // log warning nếu cần
+                    _logger.LogWarning(ex, "Failed to save project");
+                }
+            }
+
+            throw; 
+        }
     }
 
     private static void ValidateRequest(CreateProjectRequest request)
